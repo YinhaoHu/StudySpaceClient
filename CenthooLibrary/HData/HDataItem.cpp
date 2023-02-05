@@ -3,7 +3,6 @@
 using namespace ceh::Data;
 using namespace std;
 
-//Impelementation of HDataItem
 HDataItem::HDataItem()
 {
 	key = string();
@@ -51,4 +50,3 @@ HDataItem& HDataItem::operator=(HDataItem&& rhs)
 	return *this;
 }
 
-//Data format : key value1 value2 ...
