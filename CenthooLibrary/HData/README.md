@@ -10,6 +10,7 @@
 ### 基础信息
 * HDataItem是HData数据缓冲区的元素。
 * 建议使用.hdat为文件扩展名。
+* 基于STL编写
 ### HData
 * construtor(filename, delimeter):打开文件并且规定数据行中数据元素间的分界符，默认为SPACE
 * void load(): 加载文件数据到HData数据缓冲区。
