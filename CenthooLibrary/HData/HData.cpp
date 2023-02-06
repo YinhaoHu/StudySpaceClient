@@ -8,15 +8,14 @@ HData::HData(const char* filename, int _delimiter )
 	fileObject.open(filename, ios_base::out | ios_base::in);
 	delimiter = _delimiter;
 }
-
 HData::~HData()
 {
 	fileObject.close();
 }
 
-bool HData::fail()
+HDataItem& HData::operator[](int idx)
 {
-	return fileObject.fail();
+	return dataBuffer[idx];
 }
 
 void HData::load()
@@ -43,6 +42,10 @@ void HData::save()
 	fileObject.seekg(0);
 }
 
+bool HData::fail()
+{
+	return fileObject.fail();
+}
 int HData::size()
 {
 	return dataBuffer.size();
@@ -57,14 +60,12 @@ int HData::find(ceh::Data::HDataItem& x)
 	}
 	return -1;
 }
-
 HDataItem& HData::access(int idx)
 {
 	if (idx >= dataBuffer.size())
 		throw out_of_range("[Hdata]Access out of range.\n");
 	return dataBuffer[idx];
 }
-
 bool HData::modify(int idx, ceh::Data::HDataItem& newItem)
 {
 	if (idx >= dataBuffer.size())
@@ -75,7 +76,6 @@ bool HData::modify(int idx, ceh::Data::HDataItem& newItem)
 		return true;
 	}
 }
-
 bool HData::remove(int idx)
 {
 	if (idx >= dataBuffer.size())
@@ -86,7 +86,6 @@ bool HData::remove(int idx)
 		return true;
 	}
 }
-
 void HData::append(ceh::Data::HDataItem& newItem)
 {
 	dataBuffer.push_back(newItem);
