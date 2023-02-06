@@ -87,10 +87,7 @@ public:
 	HData(const char* filename, int delimiter = ' ');
 	~HData();
 
-	HDataItem& operator[](int idx)
-	{
-		return dataBuffer[idx];
-	}
+	HDataItem& operator[](int idx);
 
 	void load();
 	void save();
