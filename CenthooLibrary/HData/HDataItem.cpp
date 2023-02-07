@@ -5,20 +5,20 @@ using namespace std;
 
 HDataItem::HDataItem()
 {
-	key = string();
-	values = vector<string>();
+	key = HDataItem_key();
+	values = HDataItem_values();
 }
 HDataItem::HDataItem(const HDataItem& rhs)
 {
 	key = rhs.key;
 	values = rhs.values;
 }
-HDataItem::HDataItem(std::string& _key, std::vector<std::string>& _values)
+HDataItem::HDataItem(HDataItem_key& _key, HDataItem_values& _values)
 {
 	key = _key;
 	values = _values;
 }
-HDataItem::HDataItem(std::string&& _key, std::vector<std::string>&& _values)
+HDataItem::HDataItem(HDataItem_key&& _key, HDataItem_values&& _values)
 {
 	key = _key;
 	values = _values;
