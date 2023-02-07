@@ -3,7 +3,7 @@
 using namespace ceh::Data;
 using namespace std;
 
-HData::HData(const char* filename, int _delimiter )
+HData::HData(const char* filename, int _delimiter)
 {
 	fileObject.open(filename, ios_base::out | ios_base::in);
 	delimiter = _delimiter;
@@ -22,7 +22,7 @@ void HData::load()
 {
 	string lineStr;
 	HDataItem item;
-	
+
 	dataBuffer.clear();
 	while (getline(fileObject, lineStr).good())
 	{
@@ -35,7 +35,7 @@ void HData::load()
 void HData::save()
 {
 	for (int i = 0; i < dataBuffer.size(); ++i)
-	{ 
+	{
 		fileObject << HDataItem::toStdString(dataBuffer[i]) + "\n";
 	}
 	fileObject.clear();
