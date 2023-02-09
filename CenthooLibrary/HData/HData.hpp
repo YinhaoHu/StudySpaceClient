@@ -86,62 +86,22 @@ struct ceh::Data::HDataItem
 		key.resize(endIter - beginIter);
 		copy(beginIter, endIter, key.begin());
 		beginIter = endIter + 1;
-		if (beginIter - 1 == str.end())
+		while (beginIter != str.end() +1)
 		{
-			item.key = key;
-			item.values = HDataItem_values();
-			return item;
+			endIter = find(beginIter, str.end(), delimeter);
+			tempValue.resize(endIter - beginIter);
+			copy(beginIter, endIter, tempValue.begin());
+			values.push_back(tempValue);
 		}
-		else
-		{
-			while (beginIter != str.end())
-			{
-				endIter = find(beginIter, str.end(), delimeter);
-				tempValue.resize(endIter - beginIter);
-				copy(beginIter, endIter, tempValue.begin());
-				values.push_back(tempValue);
+		item.key = key;
+		item.values = values;
 
-				beginIter = (endIter == str.end()) ? str.end() : endIter + 1;
-			}
-			item.key = key;
-			item.values = values;
-
-			return item;
-		}
+		return item;
+		
 	}
 	static inline HDataItem fromStdString(std::string&& str, char delimeter = ' ')
 	{
-		HDataItem item;
-		HDataItem_key key;
-		HDataItem_values values;
-		HDataItem_value tempValue;
-
-		auto beginIter = str.begin(), endIter = find(beginIter, str.end(), delimeter);
-		key.resize(endIter - beginIter);
-		copy(beginIter, endIter, key.begin());
-		beginIter = endIter + 1;
-		if (beginIter - 1 == str.end())
-		{
-			item.key = key;
-			item.values = HDataItem_values();
-			return item;
-		}
-		else
-		{
-			while (beginIter != str.end())
-			{
-				endIter = find(beginIter, str.end(), delimeter);
-				tempValue.resize(endIter - beginIter);
-				copy(beginIter, endIter, tempValue.begin());
-				values.push_back(tempValue);
-
-				beginIter = (endIter == str.end()) ? str.end() : endIter + 1;
-			}
-			item.key = key;
-			item.values = values;
-
-			return item;
-		}
+		fromStdString(std::move(str),delimeter);
 	}
 
 };
@@ -188,62 +148,23 @@ struct ceh::Data::HWDataItem
 		key.resize(endIter - beginIter);
 		copy(beginIter, endIter, key.begin());
 		beginIter = endIter + 1;
-		if (beginIter - 1 == str.end())
+		while (beginIter != str.end()+1)
 		{
-			item.key = key;
-			item.values = HWDataItem_values();
-			return item;
-		}
-		else
-		{
-			while (beginIter != str.end())
-			{
-				endIter = find(beginIter, str.end(), delimeter);
-				tempValue.resize(endIter - beginIter);
-				copy(beginIter, endIter, tempValue.begin());
-				values.push_back(tempValue);
+			endIter = find(beginIter, str.end(), delimeter);
+			tempValue.resize(endIter - beginIter);
+			copy(beginIter, endIter, tempValue.begin());
+			values.push_back(tempValue);
 
-				beginIter = (endIter == str.end()) ? str.end() : endIter + 1;
-			}
-			item.key = key;
-			item.values = values;
-
-			return item;
+			beginIter =  endIter + 1;
 		}
+		item.key = key;
+		item.values = values;
+
+		return item;
 	}
 	static inline HWDataItem fromStdWString(std::wstring&& str, wchar_t delimeter = L' ')
 	{
-		HWDataItem item;
-		HWDataItem_key key;
-		HWDataItem_values values;
-		HWDataItem_value tempValue;
-
-		auto beginIter = str.begin(), endIter = find(beginIter, str.end(), delimeter);
-		key.resize(endIter - beginIter);
-		copy(beginIter, endIter, key.begin());
-		beginIter = endIter + 1;
-		if (beginIter - 1 == str.end())
-		{
-			item.key = key;
-			item.values = HWDataItem_values();
-			return item;
-		}
-		else
-		{
-			while (beginIter != str.end())
-			{
-				endIter = find(beginIter, str.end(), delimeter);
-				tempValue.resize(endIter - beginIter);
-				copy(beginIter, endIter, tempValue.begin());
-				values.push_back(tempValue);
-
-				beginIter = (endIter == str.end()) ? str.end() : endIter + 1;
-			}
-			item.key = key;
-			item.values = values;
-
-			return item;
-		}
+		return fromStdWString(std::move(str), delimeter);
 	}
 };
 
