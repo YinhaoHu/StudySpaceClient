@@ -92,6 +92,8 @@ struct ceh::Data::HDataItem
 			tempValue.resize(endIter - beginIter);
 			copy(beginIter, endIter, tempValue.begin());
 			values.push_back(tempValue);
+
+			beginIter = endIter + 1;
 		}
 		item.key = key;
 		item.values = values;
