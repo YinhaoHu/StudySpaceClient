@@ -1,4 +1,4 @@
-#ifndef _HDATA_HPP_
+﻿#ifndef _HDATA_HPP_
 #define _HDATA_HPP_
 
 //	Centhoo Library: HData
@@ -10,7 +10,7 @@
 #include<vector>
 #include<fstream>
 #include<codecvt>
-
+#include<locale>
 
 namespace ceh
 {
@@ -23,27 +23,27 @@ namespace ceh
 
 		using HDataItem_key = std::string;
 		using HDataItem_value = std::string;
-		using HDataItem_values = std::vector<std::string>;
+		using HDataItem_values = std::vector<HDataItem_value>;
 
 		using HWDataItem_key = std::wstring;
 		using HWDataItem_value = std::wstring;
-		using HWDataItem_values = std::vector<std::wstring>;
+		using HWDataItem_values = std::vector<HWDataItem_value>;
 
-		std::wstring ceh::Data::utf8ToWstring(const std::string& utf8Str);
-		std::string ceh::Data::wstringToUtf8(const std::wstring& wStr);
+		static inline std::wstring utf8ToWstring(const std::string& utf8Str)
+		{
+			std::wstring_convert<std::codecvt_utf8<wchar_t>> myconv;
+			return myconv.from_bytes(utf8Str);
+		}
+		static inline std::string wstringToUtf8(const std::wstring& wStr)
+		{
+			std::wstring_convert<std::codecvt_utf8<wchar_t>> myconv;
+			return myconv.to_bytes(wStr);
+		}
+	
 	};
 }
 
-std::wstring ceh::Data::utf8ToWstring(const std::string& utf8Str)
-{
-	std::wstring_convert<std::codecvt_utf8<wchar_t>> myconv;
-	return myconv.from_bytes(str);
-}
-std::string ceh::Data::wstringToUtf8(const std::wstring& wStr)
-{
-	std::wstring_convert<std::codecvt_utf8<wchar_t>> myconv;
-	return myconv.to_bytes(str);
-}
+
 
 struct ceh::Data::HDataItem
 {
@@ -52,8 +52,8 @@ struct ceh::Data::HDataItem
 
 	HDataItem();
 	HDataItem(const HDataItem& rhs);
-	HDataItem(std::string& k, std::vector<std::string>& values);
-	HDataItem(std::string&& k, std::vector<std::string>&& values);
+	HDataItem(HDataItem_key& _key, HDataItem_values& _values);
+	HDataItem(HDataItem_key&& _key, HDataItem_values&& _values);
 	~HDataItem();
 
 	bool operator==(HDataItem& rhs);
@@ -101,6 +101,32 @@ struct ceh::Data::HDataItem
 
 		return item;
 	}
+	static inline HDataItem fromStdString(std::string&& str, char delimeter = ' ')
+	{
+		HDataItem item;
+		HDataItem_key key;
+		HDataItem_values values;
+		HDataItem_value tempValue;
+
+		auto beginIter = str.begin(), endIter = find(beginIter, str.end(), delimeter);
+		key.resize(endIter - beginIter);
+		copy(beginIter, endIter, key.begin());
+		beginIter = endIter + 1;
+		while (beginIter != str.end())
+		{
+			endIter = find(beginIter, str.end(), delimeter);
+			tempValue.resize(endIter - beginIter);
+			copy(beginIter, endIter, tempValue.begin());
+			values.push_back(tempValue);
+
+			beginIter = (endIter == str.end()) ? str.end() : endIter + 1;
+		}
+		item.key = key;
+		item.values = values;
+
+		return item;
+	}
+
 };
 
 struct ceh::Data::HWDataItem
@@ -119,7 +145,7 @@ struct ceh::Data::HWDataItem
 	HWDataItem& operator=(HWDataItem&& rhs);
 
 
-	static inline std::wstring toStdWString(HWDataItem& item, wchar_t delimeter = ' ')
+	static inline std::wstring toStdWString(HWDataItem& item, wchar_t delimeter = L' ')
 	{
 		std::wstring retString = item.key + delimeter;
 
@@ -131,10 +157,10 @@ struct ceh::Data::HWDataItem
 
 		return retString;
 	}
-	static inline std::wstring toStdWString(const HWDataItem& item, wchar_t delimeter = ' ') {
+	static inline std::wstring toStdWString(const HWDataItem& item, wchar_t delimeter = L' ') {
 		return toStdWString(const_cast<HWDataItem&>(item));
 	}
-	static inline HWDataItem fromStdWString(std::wstring& str, wchar_t delimeter = ' ')
+	static inline HWDataItem fromStdWString(std::wstring& str, wchar_t delimeter = L' ')
 	{
 		HWDataItem item;
 		HWDataItem_key key;
@@ -159,6 +185,32 @@ struct ceh::Data::HWDataItem
 
 		return item;
 	}
+	static inline HWDataItem fromStdWString(std::wstring&& str, wchar_t delimeter = L' ')
+	{
+		HWDataItem item;
+		HWDataItem_key key;
+		HWDataItem_values values;
+		HWDataItem_value tempValue;
+
+		auto beginIter = str.begin(), endIter = find(beginIter, str.end(), delimeter);
+		key.resize(endIter - beginIter);
+		copy(beginIter, endIter, key.begin());
+		beginIter = endIter + 1;
+		while (beginIter != str.end())
+		{
+			endIter = find(beginIter, str.end(), delimeter);
+			tempValue.resize(endIter - beginIter);
+			copy(beginIter, endIter, tempValue.begin());
+			values.push_back(tempValue);
+
+			beginIter = (endIter == str.end()) ? str.end() : endIter + 1;
+		}
+		item.key = key;
+		item.values = values;
+
+		return item;
+	}
+
 };
 
 class ceh::Data::HData
@@ -187,11 +239,10 @@ private:
 	std::vector<HDataItem> dataBuffer;
 };
 
-
 class ceh::Data::HWData
 {
 public:
-	HWData(const char* filename, wchar_t delimiter = ' ');
+	HWData(const char* filename, wchar_t delimiter = L' ');
 	~HWData();
 
 	HWDataItem& operator[](int idx);

@@ -1,6 +1,6 @@
 #include"HData.hpp"
 
-#include"HData.hpp"
+#include<locale>
 
 using namespace ceh::Data;
 using namespace std;
@@ -8,6 +8,7 @@ using namespace std;
 HWData::HWData(const char* filename, wchar_t _delimiter)
 {
 	fileObject.open(filename, ios_base::out | ios_base::in);
+	fileObject.imbue(std::locale(".UTF-8"));
 	delimiter = _delimiter;
 }
 HWData::~HWData()

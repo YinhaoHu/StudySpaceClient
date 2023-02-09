@@ -6,6 +6,7 @@ using namespace std;
 HData::HData(const char* filename, int _delimiter)
 {
 	fileObject.open(filename, ios_base::out | ios_base::in);
+	fileObject.imbue(std::locale(".UTF-8"));
 	delimiter = _delimiter;
 }
 HData::~HData()
