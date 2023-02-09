@@ -63,12 +63,15 @@ struct ceh::Data::HDataItem
 	static inline std::string toStdString(HDataItem& item, char delimeter = ' ')
 	{
 		std::string retString = item.key + delimeter;
+		int border = item.values.size() - 1;
 
-		for (const std::string& value : item.values)
+		for (int i = 0; i < border; ++i)
 		{
-			retString += value + delimeter;
+			retString += item.values[i] + delimeter;
 		}
-		retString.back() = '\0';
+		retString += item.values[border];
+
+		return retString;
 
 		return retString;
 	}
@@ -127,12 +130,13 @@ struct ceh::Data::HWDataItem
 	static inline std::wstring toStdWString(HWDataItem& item, wchar_t delimeter = L' ')
 	{
 		std::wstring retString = item.key + delimeter;
+		int border = item.values.size() - 1;
 
-		for (const std::wstring& value : item.values)
+		for (int i = 0; i < border; ++i)
 		{
-			retString += value + delimeter;
+			retString += item.values[i] + delimeter;
 		}
-		retString.back() = L'\0';
+		retString += item.values[border];
 
 		return retString;
 	}
