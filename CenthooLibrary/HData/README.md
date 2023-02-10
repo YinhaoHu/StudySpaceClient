@@ -51,7 +51,7 @@
 
 ### HWDataItem & HWData
 
-* 分别与HDataItem 和 HData有相同的接口(处toStdWString 和 fromStdWString);
+* 分别与HDataItem 和 HData有相同的接口(除toStdWString 和 fromStdWString外);
 
 ---
 
