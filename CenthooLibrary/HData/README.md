@@ -31,7 +31,7 @@
 
 * bool fail(): 返回文件打开状态是否失败。
 
-* int size()： 返回HData数据缓冲区大小。
+* int size()： 返回HData数据缓冲区Item的个数。
 
 * int find(x)：查找x在HData数据缓冲区中的下标，如果不在则返回-1。
 
