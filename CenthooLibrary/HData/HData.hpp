@@ -88,15 +88,14 @@ struct ceh::Data::HDataItem
 		auto beginIter = str.begin(), endIter = find(beginIter, str.end(), delimeter);
 		key.resize(endIter - beginIter);
 		copy(beginIter, endIter, key.begin());
-		beginIter = endIter + 1;
-		while (beginIter != str.end() +1)
+		while(endIter!=str.end())
 		{
+			beginIter = endIter + 1;
 			endIter = find(beginIter, str.end(), delimeter);
+
 			tempValue.resize(endIter - beginIter);
 			copy(beginIter, endIter, tempValue.begin());
 			values.push_back(tempValue);
-
-			beginIter = endIter + 1;
 		}
 		item.key = key;
 		item.values = values;
@@ -153,15 +152,14 @@ struct ceh::Data::HWDataItem
 		auto beginIter = str.begin(), endIter = find(beginIter, str.end(), delimeter);
 		key.resize(endIter - beginIter);
 		copy(beginIter, endIter, key.begin());
-		beginIter = endIter + 1;
-		while (beginIter != str.end()+1)
+		while (endIter != str.end())
 		{
+			beginIter = endIter + 1;
 			endIter = find(beginIter, str.end(), delimeter);
+
 			tempValue.resize(endIter - beginIter);
 			copy(beginIter, endIter, tempValue.begin());
 			values.push_back(tempValue);
-
-			beginIter =  endIter + 1;
 		}
 		item.key = key;
 		item.values = values;
