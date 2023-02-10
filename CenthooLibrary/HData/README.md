@@ -4,7 +4,7 @@
 
 ## 模块信息
 
-* 简介：HData是Centhoo Library中的管理Key-value类型存储数据的轻量级模块。
+* 简介：HData是Centhoo Library中的管理Key-value类型存储数据的轻量级模块。为Centhoo Applications系列编写。
 * 版本：1.0
 * 更新日期：2023年2月5日
 * 作者：Henry Hoo
