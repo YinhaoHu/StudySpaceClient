@@ -105,7 +105,7 @@ struct ceh::Data::HDataItem
 	}
 	static inline HDataItem fromStdString(std::string&& str, char delimeter = ' ')
 	{
-		fromStdString(std::move(str),delimeter);
+		return fromStdString(std::move(str),delimeter);
 	}
 
 };
