@@ -63,7 +63,7 @@
 
 ## 编码问题
 
-* 对于utf8文件，使用HData配合utf8ToWString进行处理。
+* HWData的基本数据类型为wchar_t(在Linux和Windows系统上分别是4字节和2字节大小，需要注意), HData的基本数据类型为char。
 
 ---
 
