@@ -1,15 +1,17 @@
-#ifndef _HDATA_HPP_
+﻿#ifndef _HDATA_HPP_
 #define _HDATA_HPP_
 
 //	Centhoo Library: HData
 //  Author: Henry Hoo
 //  Note: More information is written in the README.md
+#define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING 
 
 #include<algorithm>
 #include<string>
 #include<vector>
 #include<fstream>
 #include<codecvt>
+
 #include<locale>
 
 namespace ceh
@@ -18,8 +20,9 @@ namespace ceh
 	{
 		class HData;
 		class HWData;
-		class HDataItem;
-		class HWDataItem;
+
+		struct HDataItem;
+		struct HWDataItem;
 
 		using HDataItem_key = std::string;
 		using HDataItem_value = std::string;
@@ -28,21 +31,8 @@ namespace ceh
 		using HWDataItem_key = std::wstring;
 		using HWDataItem_value = std::wstring;
 		using HWDataItem_values = std::vector<HWDataItem_value>;
-
-		static inline std::wstring UTF8toStdWstring(const std::string& utf8Str)
-		{
-			std::wstring_convert<std::codecvt_utf8<wchar_t>> myconv;
-			return myconv.from_bytes(utf8Str);
-		}
-		static inline std::string stdWstringToUTF8(const std::wstring& wStr)
-		{
-			std::wstring_convert<std::codecvt_utf8<wchar_t>> myconv;
-			return myconv.to_bytes(wStr);
-		}
 	};
 }
-
-
 
 struct ceh::Data::HDataItem
 {
@@ -62,8 +52,10 @@ struct ceh::Data::HDataItem
 
 	static inline std::string toStdString(HDataItem& item, char delimeter = ' ')
 	{
+		if (item.values.empty())
+			return item.key;
 		std::string retString = item.key + delimeter;
-		int border = item.values.size() - 1;
+		size_t border = item.values.size() - 1;
 
 		for (int i = 0; i < border; ++i)
 		{
@@ -105,7 +97,8 @@ struct ceh::Data::HDataItem
 	}
 	static inline HDataItem fromStdString(std::string&& str, char delimeter = ' ')
 	{
-		return fromStdString(std::move(str),delimeter);
+		std::string tempStr = std::move(str);
+		return fromStdString(tempStr, delimeter);
 	}
 
 };
@@ -128,8 +121,10 @@ struct ceh::Data::HWDataItem
 
 	static inline std::wstring toStdWString(HWDataItem& item, wchar_t delimeter = L' ')
 	{
+		if (item.values.empty())
+			return item.key;
 		std::wstring retString = item.key + delimeter;
-		int border = item.values.size() - 1;
+		size_t border = item.values.size() - 1 ;
 
 		for (int i = 0; i < border; ++i)
 		{
@@ -168,7 +163,8 @@ struct ceh::Data::HWDataItem
 	}
 	static inline HWDataItem fromStdWString(std::wstring&& str, wchar_t delimeter = L' ')
 	{
-		return fromStdWString(std::move(str), delimeter);
+		std::wstring tempStr = std::move(str);
+		return fromStdWString(tempStr, delimeter);
 	}
 };
 
@@ -184,9 +180,17 @@ public:
 	void save();
 
 	bool fail();
-	int size();
+	size_t size();
 
 	int find(ceh::Data::HDataItem& x);
+	int find(ceh::Data::HDataItem&& x);
+	int findKey(ceh::Data::HDataItem_key & x);
+	int findKey(ceh::Data::HDataItem_key && x);
+	int findValue(ceh::Data::HDataItem_value& x,int valueIdx);
+	int findValue(ceh::Data::HDataItem_value&& x, int valueIdx);
+	int findValues(ceh::Data::HDataItem_values& x);
+	int findValues(ceh::Data::HDataItem_values&& x);
+
 	HDataItem& access(int idx);
 	bool modify(int idx, ceh::Data::HDataItem& newItem);
 	bool remove(int idx);
@@ -210,9 +214,16 @@ public:
 	void save();
 
 	bool fail();
-	int size();
+	size_t size();
 
 	int find(ceh::Data::HWDataItem& x);
+	int find(ceh::Data::HWDataItem&& x);
+	int findKey(ceh::Data::HWDataItem_key& x);
+	int findKey(ceh::Data::HWDataItem_key&& x);
+	int findValue(ceh::Data::HWDataItem_value& x, int valueIdx);
+	int findValue(ceh::Data::HWDataItem_value&& x, int valueIdx);
+	int findValues(ceh::Data::HWDataItem_values& x);
+	int findValues(ceh::Data::HWDataItem_values&& x);
 	HWDataItem& access(int idx);
 	bool modify(int idx, ceh::Data::HWDataItem& newItem);
 	bool remove(int idx);

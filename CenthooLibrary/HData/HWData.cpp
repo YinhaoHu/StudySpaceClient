@@ -49,7 +49,7 @@ bool HWData::fail()
 {
 	return fileObject.fail();
 }
-int HWData::size()
+size_t HWData::size()
 {
 	return dataBuffer.size();
 }
@@ -63,10 +63,53 @@ int HWData::find(ceh::Data::HWDataItem& x)
 	}
 	return -1;
 }
+int HWData::find(ceh::Data::HWDataItem&& x)
+{
+	HWDataItem lva = x;
+	return find(lva);
+}
+int HWData::findKey(ceh::Data::HWDataItem_key& x) {
+	for (int idx = 0; idx < dataBuffer.size(); ++idx)
+	{
+		if (x == dataBuffer[idx].key)
+			return idx;
+	}
+	return -1;
+}
+int HWData::findKey(ceh::Data::HWDataItem_key&& x) {
+	HWDataItem_key lva = x;
+	return findKey(lva);
+}
+int HWData::findValue(ceh::Data::HWDataItem_value& x, int valueIdx) {
+	if (dataBuffer.size() > 0 && dataBuffer[0].values.size() <= valueIdx)
+		throw out_of_range("Out of range");
+	for (int idx = 0; idx < dataBuffer.size(); ++idx)
+	{
+		if (x == dataBuffer[idx].values[valueIdx])
+			return idx;
+	}
+	return -1;
+}
+int HWData::findValue(ceh::Data::HWDataItem_value&& x, int valueIdx) {
+	HWDataItem_value lva = x;
+	return findValue(lva, valueIdx);
+}
+int HWData::findValues(ceh::Data::HWDataItem_values& x) {
+	for (int idx = 0; idx < dataBuffer.size(); ++idx)
+	{
+		if (x == dataBuffer[idx].values)
+			return idx;
+	}
+	return -1;
+}
+int HWData::findValues(ceh::Data::HWDataItem_values&& x) {
+	HWDataItem_values lva = x;
+	return findValues(lva);
+}
 HWDataItem& HWData::access(int idx)
 {
 	if (idx >= dataBuffer.size())
-		throw out_of_range("[Hdata]Access out of range.\n");
+		throw out_of_range("[HWData]Access out of range.\n");
 	return dataBuffer[idx];
 }
 bool HWData::modify(int idx, ceh::Data::HWDataItem& newItem)
