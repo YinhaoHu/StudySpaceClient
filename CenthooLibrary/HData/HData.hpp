@@ -1,10 +1,12 @@
-﻿#ifndef _HDATA_HPP_
+#ifndef _HDATA_HPP_
 #define _HDATA_HPP_
 
 //	Centhoo Library: HData
 //  Author: Henry Hoo
 //  Note: More information is written in the README.md
-#define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING 
+
+//These macros are needed for server version!!!
+#define HDATA_FOR_SERVER_LOCAL_UTF8
 
 #include<algorithm>
 #include<string>
@@ -57,7 +59,7 @@ struct ceh::Data::HDataItem
 		std::string retString = item.key + delimeter;
 		size_t border = item.values.size() - 1;
 
-		for (int i = 0; i < border; ++i)
+		for (size_t i = 0; i < border; ++i)
 		{
 			retString += item.values[i] + delimeter;
 		}
@@ -126,7 +128,7 @@ struct ceh::Data::HWDataItem
 		std::wstring retString = item.key + delimeter;
 		size_t border = item.values.size() - 1 ;
 
-		for (int i = 0; i < border; ++i)
+		for (size_t i = 0; i < border; ++i)
 		{
 			retString += item.values[i] + delimeter;
 		}
@@ -174,7 +176,7 @@ public:
 	HData(const char* filename, int delimiter = ' ');
 	~HData();
 
-	HDataItem& operator[](int idx);
+	HDataItem& operator[](size_t idx);
 
 	void load();
 	void save();
@@ -182,18 +184,18 @@ public:
 	bool fail();
 	size_t size();
 
-	int find(ceh::Data::HDataItem& x);
-	int find(ceh::Data::HDataItem&& x);
-	int findKey(ceh::Data::HDataItem_key & x);
-	int findKey(ceh::Data::HDataItem_key && x);
-	int findValue(ceh::Data::HDataItem_value& x,int valueIdx);
-	int findValue(ceh::Data::HDataItem_value&& x, int valueIdx);
-	int findValues(ceh::Data::HDataItem_values& x);
-	int findValues(ceh::Data::HDataItem_values&& x);
+	size_t find(ceh::Data::HDataItem& x);
+	size_t find(ceh::Data::HDataItem&& x);
+	size_t findKey(ceh::Data::HDataItem_key & x);
+	size_t findKey(ceh::Data::HDataItem_key && x);
+	size_t findValue(ceh::Data::HDataItem_value& x,size_t valueIdx);
+	size_t findValue(ceh::Data::HDataItem_value&& x, size_t valueIdx);
+	size_t findValues(ceh::Data::HDataItem_values& x);
+	size_t findValues(ceh::Data::HDataItem_values&& x);
 
-	HDataItem& access(int idx);
-	bool modify(int idx, ceh::Data::HDataItem& newItem);
-	bool remove(int idx);
+	HDataItem& access(size_t idx);
+	bool modify(size_t idx, ceh::Data::HDataItem& newItem);
+	bool remove(size_t idx);
 	void append(ceh::Data::HDataItem& newItem);
 	void append(ceh::Data::HDataItem&& newItem);
 private:
@@ -208,7 +210,7 @@ public:
 	HWData(const char* filename, wchar_t delimiter = L' ');
 	~HWData();
 
-	HWDataItem& operator[](int idx);
+	HWDataItem& operator[](size_t idx);
 
 	void load();
 	void save();
@@ -216,17 +218,17 @@ public:
 	bool fail();
 	size_t size();
 
-	int find(ceh::Data::HWDataItem& x);
-	int find(ceh::Data::HWDataItem&& x);
-	int findKey(ceh::Data::HWDataItem_key& x);
-	int findKey(ceh::Data::HWDataItem_key&& x);
-	int findValue(ceh::Data::HWDataItem_value& x, int valueIdx);
-	int findValue(ceh::Data::HWDataItem_value&& x, int valueIdx);
-	int findValues(ceh::Data::HWDataItem_values& x);
-	int findValues(ceh::Data::HWDataItem_values&& x);
-	HWDataItem& access(int idx);
-	bool modify(int idx, ceh::Data::HWDataItem& newItem);
-	bool remove(int idx);
+	size_t find(ceh::Data::HWDataItem& x);
+	size_t find(ceh::Data::HWDataItem&& x);
+	size_t findKey(ceh::Data::HWDataItem_key& x);
+	size_t findKey(ceh::Data::HWDataItem_key&& x);
+	size_t findValue(ceh::Data::HWDataItem_value& x, size_t valueIdx);
+	size_t findValue(ceh::Data::HWDataItem_value&& x, size_t valueIdx);
+	size_t findValues(ceh::Data::HWDataItem_values& x);
+	size_t findValues(ceh::Data::HWDataItem_values&& x);
+	HWDataItem& access(size_t idx);
+	bool modify(size_t idx, ceh::Data::HWDataItem& newItem);
+	bool remove(size_t idx);
 	void append(ceh::Data::HWDataItem& newItem);
 	void append(ceh::Data::HWDataItem&& newItem);
 private:
