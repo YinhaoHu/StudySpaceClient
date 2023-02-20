@@ -184,14 +184,14 @@ public:
 	bool fail();
 	size_t size();
 
-	size_t find(ceh::Data::HDataItem& x);
-	size_t find(ceh::Data::HDataItem&& x);
-	size_t findKey(ceh::Data::HDataItem_key & x);
-	size_t findKey(ceh::Data::HDataItem_key && x);
-	size_t findValue(ceh::Data::HDataItem_value& x,size_t valueIdx);
-	size_t findValue(ceh::Data::HDataItem_value&& x, size_t valueIdx);
-	size_t findValues(ceh::Data::HDataItem_values& x);
-	size_t findValues(ceh::Data::HDataItem_values&& x);
+	int find(ceh::Data::HDataItem& x);
+	int find(ceh::Data::HDataItem&& x);
+	int findKey(ceh::Data::HDataItem_key & x);
+	int findKey(ceh::Data::HDataItem_key && x);
+	int findValue(ceh::Data::HDataItem_value& x,size_t valueIdx);
+	int findValue(ceh::Data::HDataItem_value&& x, size_t valueIdx);
+	int findValues(ceh::Data::HDataItem_values& x);
+	int findValues(ceh::Data::HDataItem_values&& x);
 
 	HDataItem& access(size_t idx);
 	bool modify(size_t idx, ceh::Data::HDataItem& newItem);
@@ -218,14 +218,14 @@ public:
 	bool fail();
 	size_t size();
 
-	size_t find(ceh::Data::HWDataItem& x);
-	size_t find(ceh::Data::HWDataItem&& x);
-	size_t findKey(ceh::Data::HWDataItem_key& x);
-	size_t findKey(ceh::Data::HWDataItem_key&& x);
-	size_t findValue(ceh::Data::HWDataItem_value& x, size_t valueIdx);
-	size_t findValue(ceh::Data::HWDataItem_value&& x, size_t valueIdx);
-	size_t findValues(ceh::Data::HWDataItem_values& x);
-	size_t findValues(ceh::Data::HWDataItem_values&& x);
+	int find(ceh::Data::HWDataItem& x);
+	int find(ceh::Data::HWDataItem&& x);
+	int findKey(ceh::Data::HWDataItem_key& x);
+	int findKey(ceh::Data::HWDataItem_key&& x);
+	int findValue(ceh::Data::HWDataItem_value& x, size_t valueIdx);
+	int findValue(ceh::Data::HWDataItem_value&& x, size_t valueIdx);
+	int findValues(ceh::Data::HWDataItem_values& x);
+	int findValues(ceh::Data::HWDataItem_values&& x);
 	HWDataItem& access(size_t idx);
 	bool modify(size_t idx, ceh::Data::HWDataItem& newItem);
 	bool remove(size_t idx);

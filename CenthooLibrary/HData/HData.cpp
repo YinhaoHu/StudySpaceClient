@@ -52,7 +52,7 @@ size_t HData::size()
 	return dataBuffer.size();
 }
 
-size_t HData::find(ceh::Data::HDataItem& x)
+int HData::find(ceh::Data::HDataItem& x)
 {
 	for (size_t idx = 0; idx < dataBuffer.size(); ++idx)
 	{
@@ -61,12 +61,12 @@ size_t HData::find(ceh::Data::HDataItem& x)
 	}
 	return -1;
 }
-size_t HData::find(ceh::Data::HDataItem&& x)
+int HData::find(ceh::Data::HDataItem&& x)
 {
 	HDataItem lva = x;
 	return find(lva);
 }
-size_t  HData::findKey(ceh::Data::HDataItem_key& x) {
+int  HData::findKey(ceh::Data::HDataItem_key& x) {
 	for (size_t idx = 0; idx < dataBuffer.size(); ++idx)
 	{
 		if (x == dataBuffer[idx].key)
@@ -74,11 +74,11 @@ size_t  HData::findKey(ceh::Data::HDataItem_key& x) {
 	}
 	return -1;
 }
-size_t  HData::findKey(ceh::Data::HDataItem_key&& x) {
+int  HData::findKey(ceh::Data::HDataItem_key&& x) {
 	HDataItem_key lva = x;
 	return findKey(lva);
 }
-size_t  HData::findValue(ceh::Data::HDataItem_value& x, size_t valueIdx) {
+int  HData::findValue(ceh::Data::HDataItem_value& x, size_t valueIdx) {
 	if (dataBuffer.size() > 0 && dataBuffer[0].values.size() <= valueIdx)
 		throw out_of_range("Out of range");
 	for (size_t idx = 0; idx < dataBuffer.size(); ++idx)
@@ -88,11 +88,11 @@ size_t  HData::findValue(ceh::Data::HDataItem_value& x, size_t valueIdx) {
 	}
 	return -1;
 }
-size_t  HData::findValue(ceh::Data::HDataItem_value&& x, size_t valueIdx) {
+int  HData::findValue(ceh::Data::HDataItem_value&& x, size_t valueIdx) {
 	HDataItem_value lva = x;
 	return findValue(lva, valueIdx);
 }
-size_t  HData::findValues(ceh::Data::HDataItem_values& x) {
+int  HData::findValues(ceh::Data::HDataItem_values& x) {
 	for (size_t idx = 0; idx < dataBuffer.size(); ++idx)
 	{
 		if (x == dataBuffer[idx].values)
@@ -100,7 +100,7 @@ size_t  HData::findValues(ceh::Data::HDataItem_values& x) {
 	}
 	return -1;
 }
-size_t  HData::findValues(ceh::Data::HDataItem_values&& x) {
+int  HData::findValues(ceh::Data::HDataItem_values&& x) {
 	HDataItem_values lva = x;
 	return findValues(lva);
 }

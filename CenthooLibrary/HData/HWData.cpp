@@ -54,7 +54,7 @@ size_t HWData::size()
 	return dataBuffer.size();
 }
 
-size_t HWData::find(ceh::Data::HWDataItem& x)
+int HWData::find(ceh::Data::HWDataItem& x)
 {
 	for (size_t idx = 0; idx < dataBuffer.size(); ++idx)
 	{
@@ -63,12 +63,12 @@ size_t HWData::find(ceh::Data::HWDataItem& x)
 	}
 	return -1;
 }
-size_t HWData::find(ceh::Data::HWDataItem&& x)
+int HWData::find(ceh::Data::HWDataItem&& x)
 {
 	HWDataItem lva = x;
 	return find(lva);
 }
-size_t HWData::findKey(ceh::Data::HWDataItem_key& x) {
+int HWData::findKey(ceh::Data::HWDataItem_key& x) {
 	for (size_t idx = 0; idx < dataBuffer.size(); ++idx)
 	{
 		if (x == dataBuffer[idx].key)
@@ -76,11 +76,11 @@ size_t HWData::findKey(ceh::Data::HWDataItem_key& x) {
 	}
 	return -1;
 }
-size_t HWData::findKey(ceh::Data::HWDataItem_key&& x) {
+int HWData::findKey(ceh::Data::HWDataItem_key&& x) {
 	HWDataItem_key lva = x;
 	return findKey(lva);
 }
-size_t HWData::findValue(ceh::Data::HWDataItem_value& x, size_t valueIdx) {
+int HWData::findValue(ceh::Data::HWDataItem_value& x, size_t valueIdx) {
 	if (dataBuffer.size() > 0 && dataBuffer[0].values.size() <= valueIdx)
 		throw out_of_range("Out of range");
 	for (size_t idx = 0; idx < dataBuffer.size(); ++idx)
@@ -90,11 +90,11 @@ size_t HWData::findValue(ceh::Data::HWDataItem_value& x, size_t valueIdx) {
 	}
 	return -1;
 }
-size_t HWData::findValue(ceh::Data::HWDataItem_value&& x, size_t valueIdx) {
+int HWData::findValue(ceh::Data::HWDataItem_value&& x, size_t valueIdx) {
 	HWDataItem_value lva = x;
 	return findValue(lva, valueIdx);
 }
-size_t HWData::findValues(ceh::Data::HWDataItem_values& x) {
+int HWData::findValues(ceh::Data::HWDataItem_values& x) {
 	for (size_t idx = 0; idx < dataBuffer.size(); ++idx)
 	{
 		if (x == dataBuffer[idx].values)
@@ -102,7 +102,7 @@ size_t HWData::findValues(ceh::Data::HWDataItem_values& x) {
 	}
 	return -1;
 }
-size_t HWData::findValues(ceh::Data::HWDataItem_values&& x) {
+int HWData::findValues(ceh::Data::HWDataItem_values&& x) {
 	HWDataItem_values lva = x;
 	return findValues(lva);
 }
