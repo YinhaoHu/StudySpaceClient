@@ -91,12 +91,7 @@
 ### 2. 服务器支持命令
 
 ## 四、文件组织
-
-- StudySpace
-  
-  - Server
-  - Client
-See the files for more information.
+ * See the files for more information.
         
 
 ## 五、配置文件规范
