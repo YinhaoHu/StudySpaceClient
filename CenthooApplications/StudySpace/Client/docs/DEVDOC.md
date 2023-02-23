@@ -95,58 +95,8 @@
 - StudySpace
   
   - Server
-    
-    - lib
-      
-    - include
-      
-    - src
-      
-      - server
-        
-        - driver.cpp
-          
-        - server.hpp
-          
-        - server.cpp
-          
-        - guard.hpp
-          
-        - guard.cpp
-          
-        - standard.hpp
-          
-        - net.hpp
-          
-        - net.cpp
-          
-      - service
-        
-        - service.hpp
-          
-        - service.cpp
-          
-    - test
-      
   - Client
-    
-    - lib
-      
-    - doc
-      
-    - src
-      
-      - main.cpp
-        
-      - standard.hpp
-        
-      - model
-        
-      - view
-        
-      - controller
-        
-      - net
+See the files for more information.
         
 
 ## 五、配置文件规范
@@ -171,7 +121,7 @@
 
 ## 七、服务代码
 
-- TEST: 测试
+- 查阅服务器代码：server/service.cpp
 
 ## 八、规定
 
