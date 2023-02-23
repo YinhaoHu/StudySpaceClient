@@ -2,9 +2,7 @@
 
 ---
 
-## 一、架构模型
-
-                                                    <u>Diagram1:架构模型介绍图</u>
+## 一、架构模型<img title="" src="file:///D:/PersonalFilesBase/[Programming]CPlusPlus/Projects/Centhoo/CenthooApplications/StudySpaceClient/docs/Structure.png" alt="" width="661">
 
 ### 1.客户端
 
