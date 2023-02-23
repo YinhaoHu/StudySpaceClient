@@ -3,7 +3,7 @@
 ---
 
 ## 一、架构模型
-* <img title="" src="Structure.png" alt="" width="661">
+ <img title="" src="Structure.png" alt="" width="661">
 
 ### 1.客户端
 
