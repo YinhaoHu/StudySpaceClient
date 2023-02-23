@@ -52,22 +52,11 @@
 
 ### 1. LoginWindow
 
-*——考虑实现之前，务必思考需要Qt支持什么，然后寻找QtAPI、QtTutorial的案例进行学习*
-
-*——参考C++文档以及时巩固语法知识。参考EffectiveC++以便提高代码效果*
-
-- 异常处理
-  
-  - 无法连接到服务器
-- 其他
-  
-  - <u>LoginWindow可以从HLearnWord的登录界面修改而来</u>。
+- No information
 
 ### 2. MainWindow
 
-*——考虑实现之前，务必思考需要Qt支持什么，然后寻找QtAPI、QtTutorial的案例进行学习*
-
-*——参考C++文档以及时巩固语法知识。参考EffectiveC++以便提高代码效果*
+- No information
 
 ### 3. Files
 
@@ -84,15 +73,15 @@
 
 ### 1. 服务器选型
 
-*——参考C++文档以及时巩固语法知识。参考EffectiveC++以便提高代码效果*
-
-- 简单的多线程服务器(后续实现线程池)
+- No Information
 
 ### 2. 服务器支持命令
 
+- No Information
+
 ## 四、文件组织
- * See the files for more information.
-        
+
+- See the files for more information.
 
 ## 五、配置文件规范
 
