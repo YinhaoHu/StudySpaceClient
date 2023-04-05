@@ -139,7 +139,7 @@ border-radius: 32px;</string>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(202, 202, 202);</string>
    </property>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="logo">
     <property name="geometry">
      <rect>
       <x>0</x>

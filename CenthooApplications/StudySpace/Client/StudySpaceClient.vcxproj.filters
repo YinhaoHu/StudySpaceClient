@@ -96,14 +96,14 @@
     <ClCompile Include="src\model\widget\tipwindow.cpp">
       <Filter>src\model\widget</Filter>
     </ClCompile>
-    <ClCompile Include="src\model\main\page\chatpage.cpp">
-      <Filter>src\model\main\page</Filter>
-    </ClCompile>
     <ClCompile Include="src\model\main\page\englearnpage.cpp">
       <Filter>src\model\main\page</Filter>
     </ClCompile>
     <ClCompile Include="src\net\netcontroller.cpp">
       <Filter>src\net</Filter>
+    </ClCompile>
+    <ClCompile Include="src\model\main\page\comchatpage.cpp">
+      <Filter>src\model\main\page</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -134,17 +134,23 @@
     <ClInclude Include="src\view\widget\ui_tipwindow.hpp">
       <Filter>src\view\widget</Filter>
     </ClInclude>
-    <ClInclude Include="src\view\main\page\uichatpage.hpp">
-      <Filter>src\view\main\page</Filter>
-    </ClInclude>
-    <ClInclude Include="src\view\main\list\uicomchat.hpp">
-      <Filter>src\view\main\list</Filter>
-    </ClInclude>
     <ClInclude Include="src\view\main\page\ui_englearnpage.hpp">
       <Filter>src\view\main\page</Filter>
     </ClInclude>
     <ClInclude Include="src\view\main\list\ui_englearnlist.hpp">
       <Filter>src\view\main\list</Filter>
+    </ClInclude>
+    <ClInclude Include="src\model\main\page\abstractpage.hpp">
+      <Filter>src\model\main\page</Filter>
+    </ClInclude>
+    <ClInclude Include="src\view\main\page\ui_comchatpage.hpp">
+      <Filter>src\view\main\page</Filter>
+    </ClInclude>
+    <ClInclude Include="src\view\main\list\ui_comchatlist.hpp">
+      <Filter>src\view\main\list</Filter>
+    </ClInclude>
+    <ClInclude Include="src\model\main\list\abstractlist.hpp">
+      <Filter>src\model\main\list</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -160,9 +166,6 @@
     <QtUic Include="src\view\widget\tipwindow.ui">
       <Filter>src\view\widget</Filter>
     </QtUic>
-    <QtUic Include="src\view\main\page\chatpage.ui">
-      <Filter>src\view\main\page</Filter>
-    </QtUic>
     <QtUic Include="src\view\main\list\comchat.ui">
       <Filter>src\view\main\list</Filter>
     </QtUic>
@@ -171,6 +174,12 @@
     </QtUic>
     <QtUic Include="src\view\main\list\englearnlist.ui">
       <Filter>src\view\main\list</Filter>
+    </QtUic>
+    <QtUic Include="src\view\main\page\comchatpage.ui">
+      <Filter>src\view\main\page</Filter>
+    </QtUic>
+    <QtUic Include="src\view\main\mainwindow.ui">
+      <Filter>src\view\main</Filter>
     </QtUic>
   </ItemGroup>
   <ItemGroup>
@@ -192,12 +201,6 @@
     <QtMoc Include="src\model\widget\tipwindow.hpp">
       <Filter>src\model\widget</Filter>
     </QtMoc>
-    <QtMoc Include="src\model\main\page\chatpage.hpp">
-      <Filter>src\model\main\page</Filter>
-    </QtMoc>
-    <QtMoc Include="src\model\main\list\comchat.hpp">
-      <Filter>src\model\main\list</Filter>
-    </QtMoc>
     <QtMoc Include="src\model\main\list\englearnlist.hpp">
       <Filter>src\model\main\list</Filter>
     </QtMoc>
@@ -206,6 +209,12 @@
     </QtMoc>
     <QtMoc Include="src\net\netcontroller.hpp">
       <Filter>src\net</Filter>
+    </QtMoc>
+    <QtMoc Include="src\model\main\page\comchatpage.hpp">
+      <Filter>src\model\main\page</Filter>
+    </QtMoc>
+    <QtMoc Include="src\model\main\list\comchatlist.hpp">
+      <Filter>src\model\main\list</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>

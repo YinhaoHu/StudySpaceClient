@@ -1,5 +1,5 @@
-﻿#include"net/net.hpp"
-
+﻿//driver.cpp: the entry program.
+#include"net/net.hpp"
 #include"model/main/mainwindow.hpp"
 #include"model/login/loginwindow.hpp"
 
@@ -11,11 +11,9 @@
 net::Client* clientNet;
 std::mutex netMutexLock;
 
-
 static inline void checkLocalConfig();
 static inline int setupNet();
 static inline void startProgram();
-
 
 int main(int argc, char *argv[])
 {
@@ -29,6 +27,7 @@ int main(int argc, char *argv[])
 static inline void checkLocalConfig()
 {
     //Left for check Local config.
+    //Like config folder, userdata folder.
 }
 
 static inline int setupNet()
@@ -50,7 +49,7 @@ static inline int setupNet()
     {
         TipWindow* tipwindow = new TipWindow;
         
-        tipwindow->inform(U"网络错误\n服务器连接");
+        tipwindow->inform(U"StudySpace\n连接服务器失败");
         return -1;
     }
     return 0;

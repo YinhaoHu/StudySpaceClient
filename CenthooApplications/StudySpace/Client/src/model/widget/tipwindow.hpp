@@ -19,8 +19,12 @@ public:
 signals:
 	void confirmed();
 
+public slots:
+	void closeWindow();
 private:
 	Ui::tipwindowui view;
+
+	bool showing;
 };
 
 #endif

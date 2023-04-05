@@ -13,18 +13,26 @@ namespace net {
 class net::NetController:public QObject {
 	Q_OBJECT
 
-public:
-	NetController() {
+private:
+	void initComChatRecv_data()
+	{
 		comChatRecv_data.senderProfile = QPixmap();
 		comChatRecv_data.sendername = QString();
 		comChatRecv_data.msg = QString();
 	}
+
+public:
 	struct {
 		QPixmap senderProfile;
 		QString sendername;
 		QString msg;
 	}comChatRecv_data;
 
+	NetController() 
+	{
+		initComChatRecv_data();
+	}
+	
 signals:
 	void comChatRecv_update();
 };

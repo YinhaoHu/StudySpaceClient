@@ -3,10 +3,10 @@
 
 #include"../../view/main/ui_mainwindow.hpp"
 #include"../widget/messagewidget.hpp"
-#include"list/comchat.hpp"
+#include"list/comchatlist.hpp"
 #include"list/englearnlist.hpp"
 #include"page/englearnpage.hpp"
-#include"page/chatpage.hpp"
+#include"page/comchatpage.hpp"
 
 #include<QtWidgets/qwidget.h>
 #include<QtGui/qevent.h>
@@ -15,7 +15,7 @@ class MainWindow :public QWidget {
 	Q_OBJECT
 private:
 	Ui::mainwindowui view;
-
+	
 	enum OptionList{comChat,engLearn};
 	struct {
 		QWidget* curPage;
@@ -24,24 +24,22 @@ private:
 	}status;
 	bool windowMovingOn;
 
-	void setupUi();
-	void setuiDelegate();
-	void setupNetController();
-	void windowController(int option);
+	void generateService();
+	void setupView();
+	void setupDelegate() const;
+	void setupNetController() const;
+	void serveFor(int option);
 	
 public:
 	TipWindow tipWindow; 
 	struct {
-		ChatPage* comChat;
+		Page::ComChat* comChat;
 		Page::EngLearn* engLearn;
 	}Pages;
 	struct {
 		List::ComChat* comChat;
 		List::EngLearn* engLearn;
 	}Lists;
-	struct {
-		QPixmap* selfProfile;
-	}userWindowData;
 
 	MainWindow(QWidget* parent = nullptr);
 
@@ -53,6 +51,8 @@ public slots:
 	void init();
 
 private slots:
+	void userQuit();
+
 	void comChatOptionSlot();
 	void engLearnOptionSlot();
 };

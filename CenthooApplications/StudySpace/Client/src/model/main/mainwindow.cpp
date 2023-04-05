@@ -1,4 +1,5 @@
-﻿#include"mainwindow.hpp"
+﻿// The core program of mainwindow
+#include"mainwindow.hpp"
 
 #include"../widget/tipwindow.hpp"
 #include"../../standard.hpp"
@@ -10,7 +11,6 @@
 #include<thread>
 
 #include<cstdio>
-#include<malloc.h>
 
 #include<QtWidgets/qlabel.h>
 #include<QtWidgets/qscrollbar.h>
@@ -27,40 +27,31 @@ extern net::Client* clientNet;
 extern std::mutex netMutexLock;
 
 //private:
-void MainWindow::setupUi() {
+void MainWindow::setupView() {
 	setWindowFlag(Qt::FramelessWindowHint);
 	view.setupUi(this);
-
-	Pages.comChat = new ChatPage(view.mainArea);
-	Pages.comChat->setSelfProfile(userWindowData.selfProfile);
-	Lists.comChat = new List::ComChat(view.listArea);
-
-	Pages.engLearn = new Page::EngLearn(view.mainArea);
-	Lists.engLearn = new List::EngLearn(view.listArea);
-
-	userWindowData.selfProfile = new QPixmap;
 }
 
-void MainWindow::setuiDelegate() {
+void MainWindow::setupDelegate() const{
 	//Window Connection
 	QObject::connect(view.minimizeButton, SIGNAL(pressed()), SLOT(toggle()));
 	QObject::connect(view.minimizeButton, SIGNAL(pressed()), this,SLOT(showMinimized()));
-	QObject::connect(view.closeButton, SIGNAL(pressed()), this, SLOT(close()));
+	QObject::connect(view.closeButton, SIGNAL(pressed()), this, SLOT(userQuit()));
 
-	//Option Connection
+	//Option Connection    --- For registering Page&List only.
 	QObject::connect(view.comChatOption, SIGNAL(pressed()), this, SLOT(comChatOptionSlot()));
 	QObject::connect(view.engLearnOption, SIGNAL(pressed()), this, SLOT(engLearnOptionSlot()));
 }
 
-void MainWindow::setupNetController() {
+void MainWindow::setupNetController() const{
 	Pages.comChat->setupNetController();
 }
 
-void MainWindow::windowController(int option) 
+void MainWindow::serveFor(int option) 
 {
-	if(status.curList)
+	if(status.curList != nullptr)
 		status.curList->close();
-	if(status.curPage)
+	if(status.curPage != nullptr)
 		status.curPage->close();
 
 	switch (option)
@@ -79,11 +70,19 @@ void MainWindow::windowController(int option)
 	status.curPage->show();
 }
 
+void MainWindow::generateService()
+{
+	Pages.comChat = new Page::ComChat(view.mainArea);
+	Lists.comChat = new List::ComChat(view.listArea);
+
+	Pages.engLearn = new Page::EngLearn(view.mainArea);
+	Lists.engLearn = new List::EngLearn(view.listArea);
+}
 
 //public:
 void MainWindow::keyPressEvent(QKeyEvent* event) {
 	if (event->matches(QKeySequence::Cancel))
-		close();
+		userQuit();
 }
 
 void  MainWindow::mousePressEvent(QMouseEvent* event)
@@ -113,15 +112,14 @@ void  MainWindow::mouseReleaseEvent(QMouseEvent* event)
 }
 
 MainWindow::MainWindow(QWidget* parent)
-	:QWidget(parent)
+	:QWidget(parent),windowMovingOn(false)
 {
 	status.curPage = nullptr;
 	status.curList = nullptr;
 	status.mousePoint = QPoint();
-	windowMovingOn = false;
 
-	setupUi();
-	setuiDelegate();
+	setupView();
+	setupDelegate();
 
 	setMouseTracking(true);
 
@@ -141,8 +139,8 @@ void MainWindow::init() {
 	
 	memset(selfUsernameBuffer,0,net::sockMsgBytes);
 	memset(fileSizeStr, 0, standard::size::fieldBytes);
+
 	//Recv
-	
 	clientNet->recvMsg(selfUsernameBuffer);
 	clientNet->recvFile(fileSizeStr, standard::size::fieldBytes);
 	char* end;		
@@ -157,21 +155,26 @@ void MainWindow::init() {
 	fwrite(selfProfileBuffer, sizeof(char), profileBufferSize, fd);
 	fclose(fd);
 	
-	//Initilize
+	/*
+	Initilize: 
+		1)		userData struct, 
+		2)		info area, 
+		3)		net controller thread.
+		4)		allocate memory for service class.-> generateService()
+	*/
 	userData.selfUsername = QString::fromStdU32String(selfUsernameBuffer);
+	userData.selfProfileFilename = standard::file::selfProfile;
 	selfProfileFile.open(standard::file::selfProfile, ios_base::in);
-	*userWindowData.selfProfile =  QPixmap(standard::file::selfProfile);
 
 	view.usernameLabel->setText(userData.selfUsername);
-	view.profileLabel->setPixmap(*userWindowData.selfProfile);
+	view.profileLabel->setPixmap(QPixmap(standard::file::selfProfile));
 	selfProfileFile.close();
 
 	netController = new net::NetController;
 	std::thread netControllerThread(net::netControllerEntry, netController);
 	netControllerThread.detach();
 	
-	Pages.comChat->setSelfProfile(userWindowData.selfProfile);
-
+	generateService();
 	//NetController Register
 	setupNetController();
 
@@ -183,12 +186,25 @@ void MainWindow::init() {
 }
 
 //private slots:
+void MainWindow::userQuit()
+{
+	QString cmdString(QString::fromStdU32String(U"USERQUIT "));
+	char32_t* msg = new char32_t[net::sockMsgLen];
+
+	cmdString.append(userData.selfID);
+	memset(msg, 0, net::sockMsgBytes);
+	memcpy(msg, cmdString.toStdU32String().c_str(), cmdString.size() * sizeof(char32_t));
+	clientNet->sendMsg(msg);
+
+	delete[] msg;
+	close();
+}
 
 void MainWindow::comChatOptionSlot() {
-	windowController(OptionList::comChat);
+	serveFor(OptionList::comChat);
 }
 
 void MainWindow::engLearnOptionSlot()
 {
-	windowController(OptionList::engLearn);
+	serveFor(OptionList::engLearn);
 }

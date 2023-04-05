@@ -21,7 +21,7 @@
     <ClCompile Include="src\model\login\loginwindow.cpp" />
     <ClCompile Include="src\model\login\registerwindow.cpp" />
     <ClCompile Include="src\model\main\mainwindow.cpp" />
-    <ClCompile Include="src\model\main\page\chatpage.cpp" />
+    <ClCompile Include="src\model\main\page\comchatpage.cpp" />
     <ClCompile Include="src\model\main\page\englearnpage.cpp" />
     <ClCompile Include="src\model\widget\messagewidget.cpp" />
     <ClCompile Include="src\model\widget\tipwindow.cpp" />
@@ -31,14 +31,16 @@
   <ItemGroup>
     <ClInclude Include="lib\CenthooLib\HData\HData.hpp" />
     <QtMoc Include="src\model\widget\tipwindow.hpp" />
-    <QtMoc Include="src\model\main\page\chatpage.hpp" />
-    <QtMoc Include="src\model\main\list\comchat.hpp" />
     <QtMoc Include="src\model\main\list\englearnlist.hpp" />
     <QtMoc Include="src\model\main\page\englearnpage.hpp" />
     <QtMoc Include="src\net\netcontroller.hpp" />
-    <ClInclude Include="src\view\main\list\uicomchat.hpp" />
+    <QtMoc Include="src\model\main\list\comchatlist.hpp" />
+    <ClInclude Include="src\model\main\list\abstractlist.hpp" />
+    <ClInclude Include="src\model\main\page\abstractpage.hpp" />
+    <QtMoc Include="src\model\main\page\comchatpage.hpp" />
+    <ClInclude Include="src\view\main\list\ui_comchatlist.hpp" />
     <ClInclude Include="src\view\main\list\ui_englearnlist.hpp" />
-    <ClInclude Include="src\view\main\page\uichatpage.hpp" />
+    <ClInclude Include="src\view\main\page\ui_comchatpage.hpp" />
     <ClInclude Include="src\view\main\page\ui_englearnpage.hpp" />
     <ClInclude Include="src\view\widget\ui_tipwindow.hpp" />
     <QtMoc Include="src\model\main\mainwindow.hpp" />
@@ -60,7 +62,8 @@
     <QtUic Include="src\view\login\registerwindow.ui" />
     <QtUic Include="src\view\main\list\comchat.ui" />
     <QtUic Include="src\view\main\list\englearnlist.ui" />
-    <QtUic Include="src\view\main\page\chatpage.ui" />
+    <QtUic Include="src\view\main\mainwindow.ui" />
+    <QtUic Include="src\view\main\page\comchatpage.ui" />
     <QtUic Include="src\view\main\page\englearnpage.ui" />
     <QtUic Include="src\view\widget\tipwindow.ui" />
   </ItemGroup>
@@ -112,6 +115,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>

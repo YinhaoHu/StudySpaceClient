@@ -38,17 +38,15 @@ inline int net::setUp() {
 
 //Implementation of Class Client
 Client::Client(const serverInfo* info)
+	:clientSocket(0),errorNum(0)
 {
-	clientSocket = 0;
-	errorNum = 0;
 	strcpy(host, info->host);
 	strcpy(port, info->port);
 }
 
 Client::Client(const char* serverhost, const char* serverport)
+	:clientSocket(0), errorNum(0)
 {	
-	clientSocket = 0;
-	errorNum = 0;
 	strcpy(host,serverhost);
 	strcpy(port, serverport);
 }

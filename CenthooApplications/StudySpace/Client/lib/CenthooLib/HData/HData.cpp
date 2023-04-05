@@ -4,9 +4,9 @@ using namespace ceh::Data;
 using namespace std;
 
 HData::HData(const char* filename, int _delimiter)
+	:delimiter(_delimiter)
 {
 	fileObject.open(filename, ios_base::out | ios_base::in);
-	delimiter = _delimiter;
 }
 HData::~HData()
 {

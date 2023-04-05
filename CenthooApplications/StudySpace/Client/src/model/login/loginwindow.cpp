@@ -110,6 +110,7 @@ void LoginWindow::doLogin() {
 	{
 		userData.selfID = number;
 		emit properLogin();
+		delete this;
 	}
 	else if (loginState == 1)
 		informUser(U"用户名或密码\n输入错误");

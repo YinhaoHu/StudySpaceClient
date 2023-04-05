@@ -15,11 +15,12 @@
 using namespace std;
 using namespace net;
 
+static NetController* netController;
+static std::mutex NetControllerMutexLock;
 extern net::Client* clientNet;
 extern std::mutex netMutexLock;
 
-std::mutex NetControllerMutexLock;
-
+static inline bool matchCmd(u32string& eventTypeStr, u32string& cmd);
 static inline void comChatRecv_handler();
 
 //Any communication with server should be registered here.
@@ -27,26 +28,31 @@ static struct {
 	u32string comChatRecv =U"COMCHATRECV";
 }cmdList;
 
-static NetController* netController;
 
 void net::netControllerEntry(NetController* controller)
 {
 	char32_t* eventType;
+	u32string eventTypeStr;
 
 	netController = controller;
-	eventType = new char32_t[net::sockMsgLen];//No need to delete.
+	eventType = new char32_t[net::sockMsgLen];//Do NOT delete.
 	memset(eventType, 0, net::sockMsgBytes);
 
 	while (clientNet->recvMsg(eventType) > 0)
 	{
-		u32string eventTypeStr = eventType;
+		eventTypeStr = eventType;
 
-		if (equal(eventTypeStr.begin(),eventTypeStr.end(),
-			cmdList.comChatRecv.begin(),cmdList.comChatRecv.end()))
+		if (matchCmd(eventTypeStr, cmdList.comChatRecv))
 		{
 			comChatRecv_handler();
 		}
 	}
+}
+
+static inline bool matchCmd(u32string& eventTypeStr, u32string& cmd)
+{
+	return equal(eventTypeStr.begin(), eventTypeStr.end(),
+		cmd.begin(), cmd.end());
 }
 
 static inline void comChatRecv_handler()
@@ -72,7 +78,7 @@ static inline void comChatRecv_handler()
 	memset(id_str, 0, idStrBytes);
 
 	netMutexLock.lock();
-
+	//Critical section: begin
 	clientNet->recvMsg(username_buf);
 	clientNet->recvMsg(msg_buf);
 	clientNet->recvFile(profile_sizeStr, sizeBufBytes);
@@ -82,7 +88,7 @@ static inline void comChatRecv_handler()
 	
 	clientNet->recvFile(id_str, idStrBytes);
 	clientNet->recvFile(profile_buf, profile_size);
-
+	//Critical section: end
 	netMutexLock.unlock();
 
 	char tempFilename[standard::size::fieldBytes];
@@ -102,9 +108,11 @@ static inline void comChatRecv_handler()
 
 
 	NetControllerMutexLock.lock();
+	//Critical section: begin
 	netController->comChatRecv_data.msg = msg_str;
 	netController->comChatRecv_data.sendername = usernmae_str;
 	netController->comChatRecv_data.senderProfile = profile_pixmap;
+	//Critical section: end
 	NetControllerMutexLock.unlock();
 
 	emit netController->comChatRecv_update();

@@ -2,7 +2,6 @@
 #define _STANDRAD_HPP_
 
 #include<qstring.h>
-#include<qpixmap.h>
 
 namespace standard {
 	namespace file {
@@ -20,12 +19,25 @@ namespace standard {
 		 enum fontSize{tinyFont = 8, smallFont=12,midFont = 16, 
 					bigFont = 20, hugeFont = 24, titleFont = 32};
 	}
-
+	
 	namespace dataStruct {
 		struct UserData {
 			QString selfUsername;
 			QString selfID;
+			QString selfProfileFilename;
 		};
+	}
+	namespace view {
+		namespace page
+		{
+			inline constexpr int width = 870;
+			inline constexpr int height = 700;
+		}
+		namespace list 
+		{
+			inline constexpr int width = 200;
+			inline constexpr int height = 700;
+		}
 	}
 }
 
