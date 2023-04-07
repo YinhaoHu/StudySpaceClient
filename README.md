@@ -1,3 +1,3 @@
-# Centhoo Project
-* Include Applications of Centhoo
-* Include Library of Centhoo
+# StudySpaceClient
+* no more information here ...
+* :)
