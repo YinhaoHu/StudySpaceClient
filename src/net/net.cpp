@@ -88,17 +88,17 @@ void Client::sendFile(char* fileBuffer, int bytes)
 	send(clientSocket, fileBuffer, bytes, 0);
 }
 
-int Client::getErrNum()
+int Client::getErrNum()const
 {
 	return errorNum;
 }
 
-bool Client::fail()
+bool Client::fail()const
 {
 	return errorNum;
 }
 
-SOCKET Client::getSocket()
+SOCKET Client::getSocket()const
 {
 	return clientSocket;
 }

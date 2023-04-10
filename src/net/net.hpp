@@ -24,6 +24,8 @@ struct net::serverInfo {
 char host[net::maxFieldSize];
 char port[net::maxFieldSize];
 };
+
+
 class net::Client {
 public:
 	Client(const serverInfo* info);
@@ -35,10 +37,10 @@ public:
 	int recvMsg(char32_t* result);
 	int recvFile(char*fileBuffer,int bytes);
 	void sendFile(char* fileBuffer, int bytes);
-	SOCKET getSocket();
 
-	int getErrNum();
-	bool fail();
+	SOCKET getSocket()const;
+	int getErrNum() const;
+	bool fail() const;
 
 private:
 	SOCKET clientSocket;
