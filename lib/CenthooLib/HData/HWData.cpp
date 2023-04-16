@@ -37,13 +37,11 @@ void HWData::load()
 }
 void HWData::save()
 {
-	size_t loop_end = dataBuffer.size() - 1;
+	size_t loop_end = dataBuffer.size();
 	for (size_t i = 0; i < loop_end; ++i)
 	{
 		fileObject << HWDataItem::toStdWString(dataBuffer[i]) + L"\n";
 	}
-	if(dataBuffer.empty() == false)
-		fileObject << HWDataItem::toStdWString(dataBuffer.back());
 	fileObject.clear();
 	fileObject.seekg(0);
 }
