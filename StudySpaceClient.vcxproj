@@ -16,20 +16,50 @@
     <ClCompile Include="lib\CenthooLib\HData\HWData.cpp" />
     <ClCompile Include="lib\CenthooLib\HData\HWDataItem.cpp" />
     <ClCompile Include="lib\CenthooLib\HTime\HTime.cpp" />
+    <ClCompile Include="src\data\local_datamanager.cpp" />
+    <ClCompile Include="src\data\runtime_datamanager.cpp" />
     <ClCompile Include="src\driver.cpp" />
     <ClCompile Include="src\model\login\infowindow.cpp" />
     <ClCompile Include="src\model\login\loginwindow.cpp" />
     <ClCompile Include="src\model\login\registerwindow.cpp" />
+    <ClCompile Include="src\model\main\list\contactslist.cpp" />
     <ClCompile Include="src\model\main\mainwindow.cpp" />
     <ClCompile Include="src\model\main\page\comchatpage.cpp" />
     <ClCompile Include="src\model\main\page\englearnpage.cpp" />
+    <ClCompile Include="src\model\main\page\contactspage.cpp" />
     <ClCompile Include="src\model\widget\messagewidget.cpp" />
+    <ClCompile Include="src\model\widget\social\addfriendform.cpp" />
+    <ClCompile Include="src\model\widget\social\friendlistitem.cpp" />
+    <ClCompile Include="src\model\widget\social\notificationitem.cpp" />
     <ClCompile Include="src\model\widget\tipwindow.cpp" />
+    <ClCompile Include="src\model\widget\userinfo_changewindow.cpp" />
+    <ClCompile Include="src\model\widget\userinfo_selfshow_window.cpp" />
+    <ClCompile Include="src\model\widget\userinfo_window.cpp" />
     <ClCompile Include="src\net\net.cpp" />
     <ClCompile Include="src\net\netcontroller.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\inc_data\extern_data.hpp" />
+    <ClInclude Include="include\inc_net\extern_net.hpp" />
+    <ClInclude Include="include\inc_tip\extern_tipwindow.hpp" />
     <ClInclude Include="lib\CenthooLib\HData\HData.hpp" />
+    <QtMoc Include="src\model\widget\userinfo_changewindow.hpp" />
+    <QtMoc Include="src\model\widget\userinfo_window.hpp" />
+    <QtMoc Include="src\model\widget\userinfo_selfshow_window.hpp" />
+    <QtMoc Include="src\data\runtime_datamanager.hpp" />
+    <QtMoc Include="src\model\main\list\contactslist.hpp" />
+    <QtMoc Include="src\model\main\page\contactspage.hpp" />
+    <QtMoc Include="src\model\widget\social\addfriendform.hpp" />
+    <ClInclude Include="src\model\widget\social\friendlistitem.hpp" />
+    <QtMoc Include="src\data\local_datamanager.hpp" />
+    <QtMoc Include="src\model\widget\social\notificationitem.hpp" />
+    <ClInclude Include="src\view\main\list\ui_contactslist.hpp" />
+    <ClInclude Include="src\view\main\page\ui_contactspage.hpp" />
+    <ClInclude Include="src\view\widget\social\ui_addfriendform.hpp" />
+    <ClInclude Include="src\view\widget\social\ui_friendlistitem.hpp" />
+    <ClInclude Include="src\view\widget\social\ui_notification.hpp" />
+    <ClInclude Include="src\view\widget\ui_userinfo_changewindow.hpp" />
+    <ClInclude Include="src\view\widget\ui_userinfo_window.hpp" />
     <QtMoc Include="src\model\widget\tipwindow.hpp" />
     <QtMoc Include="src\model\main\list\englearnlist.hpp" />
     <QtMoc Include="src\model\main\page\englearnpage.hpp" />
@@ -55,17 +85,6 @@
     <ClInclude Include="src\view\Login\ui_loginwindow.hpp" />
     <ClInclude Include="src\net\net.hpp" />
     <ClInclude Include="src\standard.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <QtUic Include="src\view\login\infowindow.ui" />
-    <QtUic Include="src\view\login\loginwindow.ui" />
-    <QtUic Include="src\view\login\registerwindow.ui" />
-    <QtUic Include="src\view\main\list\comchat.ui" />
-    <QtUic Include="src\view\main\list\englearnlist.ui" />
-    <QtUic Include="src\view\main\mainwindow.ui" />
-    <QtUic Include="src\view\main\page\comchatpage.ui" />
-    <QtUic Include="src\view\main\page\englearnpage.ui" />
-    <QtUic Include="src\view\widget\tipwindow.ui" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
@@ -125,6 +144,7 @@
     </Link>
     <ClCompile>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_);src;lib;include</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

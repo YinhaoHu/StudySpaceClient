@@ -43,9 +43,6 @@
     <Filter Include="src\view\widget">
       <UniqueIdentifier>{d8df11f8-2529-419e-b846-f0050abc5eb4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\model\main\page">
-      <UniqueIdentifier>{4f4244fa-7531-450f-9b85-80d4ba8d86a6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\view\main\page">
       <UniqueIdentifier>{222c1dc1-e0c9-48eb-95f4-7daf86369d14}</UniqueIdentifier>
     </Filter>
@@ -54,6 +51,30 @@
     </Filter>
     <Filter Include="src\model\main\list">
       <UniqueIdentifier>{ec421bdf-d023-454d-b990-930d249b534e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\data">
+      <UniqueIdentifier>{55bca9be-0ebd-4eef-a4ba-7b57a256c01d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\model\widget\social">
+      <UniqueIdentifier>{aed9c858-bdad-4b86-8bc2-3c6b2908ffd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{68605c7a-80db-4ee2-93a2-e64adf25edd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\inc_data">
+      <UniqueIdentifier>{c396d6d0-cc51-4c29-862f-cc53f4295690}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\inc_net">
+      <UniqueIdentifier>{79e2125e-54a6-4eff-89cc-1f6e799e5c48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\view\widget\social">
+      <UniqueIdentifier>{d8277a27-575c-4a66-b7b9-67b21439a7fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\inc_tip">
+      <UniqueIdentifier>{80168263-9642-4133-a6e5-5b5d3f0283d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\model\main\page">
+      <UniqueIdentifier>{4f4244fa-7531-450f-9b85-80d4ba8d86a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -105,6 +126,36 @@
     <ClCompile Include="src\model\main\page\comchatpage.cpp">
       <Filter>src\model\main\page</Filter>
     </ClCompile>
+    <ClCompile Include="src\model\widget\userinfo_changewindow.cpp">
+      <Filter>src\model\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="src\model\widget\userinfo_window.cpp">
+      <Filter>src\model\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="src\data\runtime_datamanager.cpp">
+      <Filter>src\data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\model\widget\userinfo_selfshow_window.cpp">
+      <Filter>src\model\widget</Filter>
+    </ClCompile>
+    <ClCompile Include="src\model\widget\social\friendlistitem.cpp">
+      <Filter>src\model\widget\social</Filter>
+    </ClCompile>
+    <ClCompile Include="src\data\local_datamanager.cpp">
+      <Filter>src\data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\model\main\page\contactspage.cpp">
+      <Filter>src\model\main\page</Filter>
+    </ClCompile>
+    <ClCompile Include="src\model\main\list\contactslist.cpp">
+      <Filter>src\model\main\list</Filter>
+    </ClCompile>
+    <ClCompile Include="src\model\widget\social\addfriendform.cpp">
+      <Filter>src\model\widget\social</Filter>
+    </ClCompile>
+    <ClCompile Include="src\model\widget\social\notificationitem.cpp">
+      <Filter>src\model\widget\social</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\standard.hpp">
@@ -152,35 +203,39 @@
     <ClInclude Include="src\model\main\list\abstractlist.hpp">
       <Filter>src\model\main\list</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <QtUic Include="src\view\login\registerwindow.ui">
-      <Filter>src\view\login</Filter>
-    </QtUic>
-    <QtUic Include="src\view\login\loginwindow.ui">
-      <Filter>src\view\login</Filter>
-    </QtUic>
-    <QtUic Include="src\view\login\infowindow.ui">
-      <Filter>src\view\login</Filter>
-    </QtUic>
-    <QtUic Include="src\view\widget\tipwindow.ui">
+    <ClInclude Include="src\view\widget\ui_userinfo_changewindow.hpp">
       <Filter>src\view\widget</Filter>
-    </QtUic>
-    <QtUic Include="src\view\main\list\comchat.ui">
+    </ClInclude>
+    <ClInclude Include="src\view\widget\ui_userinfo_window.hpp">
+      <Filter>src\view\widget</Filter>
+    </ClInclude>
+    <ClInclude Include="src\model\widget\social\friendlistitem.hpp">
+      <Filter>src\model\widget\social</Filter>
+    </ClInclude>
+    <ClInclude Include="src\view\main\list\ui_contactslist.hpp">
       <Filter>src\view\main\list</Filter>
-    </QtUic>
-    <QtUic Include="src\view\main\page\englearnpage.ui">
+    </ClInclude>
+    <ClInclude Include="include\inc_net\extern_net.hpp">
+      <Filter>include\inc_net</Filter>
+    </ClInclude>
+    <ClInclude Include="include\inc_data\extern_data.hpp">
+      <Filter>include\inc_data</Filter>
+    </ClInclude>
+    <ClInclude Include="src\view\widget\social\ui_friendlistitem.hpp">
+      <Filter>src\view\widget\social</Filter>
+    </ClInclude>
+    <ClInclude Include="include\inc_tip\extern_tipwindow.hpp">
+      <Filter>include\inc_tip</Filter>
+    </ClInclude>
+    <ClInclude Include="src\view\widget\social\ui_addfriendform.hpp">
+      <Filter>src\view\widget\social</Filter>
+    </ClInclude>
+    <ClInclude Include="src\view\widget\social\ui_notification.hpp">
+      <Filter>src\view\widget\social</Filter>
+    </ClInclude>
+    <ClInclude Include="src\view\main\page\ui_contactspage.hpp">
       <Filter>src\view\main\page</Filter>
-    </QtUic>
-    <QtUic Include="src\view\main\list\englearnlist.ui">
-      <Filter>src\view\main\list</Filter>
-    </QtUic>
-    <QtUic Include="src\view\main\page\comchatpage.ui">
-      <Filter>src\view\main\page</Filter>
-    </QtUic>
-    <QtUic Include="src\view\main\mainwindow.ui">
-      <Filter>src\view\main</Filter>
-    </QtUic>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="src\model\login\loginwindow.hpp">
@@ -215,6 +270,33 @@
     </QtMoc>
     <QtMoc Include="src\model\main\list\comchatlist.hpp">
       <Filter>src\model\main\list</Filter>
+    </QtMoc>
+    <QtMoc Include="src\model\widget\userinfo_window.hpp">
+      <Filter>src\model\widget</Filter>
+    </QtMoc>
+    <QtMoc Include="src\model\widget\userinfo_selfshow_window.hpp">
+      <Filter>src\model\widget</Filter>
+    </QtMoc>
+    <QtMoc Include="src\model\widget\userinfo_changewindow.hpp">
+      <Filter>src\model\widget</Filter>
+    </QtMoc>
+    <QtMoc Include="src\data\runtime_datamanager.hpp">
+      <Filter>src\data</Filter>
+    </QtMoc>
+    <QtMoc Include="src\data\local_datamanager.hpp">
+      <Filter>src\data</Filter>
+    </QtMoc>
+    <QtMoc Include="src\model\main\list\contactslist.hpp">
+      <Filter>src\model\main\list</Filter>
+    </QtMoc>
+    <QtMoc Include="src\model\main\page\contactspage.hpp">
+      <Filter>src\model\main\page</Filter>
+    </QtMoc>
+    <QtMoc Include="src\model\widget\social\addfriendform.hpp">
+      <Filter>src\model\widget\social</Filter>
+    </QtMoc>
+    <QtMoc Include="src\model\widget\social\notificationitem.hpp">
+      <Filter>src\model\widget\social</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
