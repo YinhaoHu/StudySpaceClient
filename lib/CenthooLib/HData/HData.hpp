@@ -1,15 +1,20 @@
-﻿#ifndef _HDATA_HPP_
+#ifndef _HDATA_HPP_
 #define _HDATA_HPP_
 
 //	Centhoo Library: HData
 //  Author: Henry Hoo
 //  Note: More information is written in the README.md
 
+//These macros are needed for server version!!!
+#define HDATA_FOR_SERVER_LOCAL_UTF8
+#define _CRT_SECURE_NO_WARNINGS 
+
 #include<algorithm>
 #include<string>
 #include<vector>
 #include<fstream>
 #include<codecvt>
+
 #include<locale>
 
 namespace ceh
@@ -18,8 +23,9 @@ namespace ceh
 	{
 		class HData;
 		class HWData;
-		class HDataItem;
-		class HWDataItem;
+
+		struct HDataItem;
+		struct HWDataItem;
 
 		using HDataItem_key = std::string;
 		using HDataItem_value = std::string;
@@ -28,21 +34,8 @@ namespace ceh
 		using HWDataItem_key = std::wstring;
 		using HWDataItem_value = std::wstring;
 		using HWDataItem_values = std::vector<HWDataItem_value>;
-
-		static inline std::wstring UTF8toStdWstring(const std::string& utf8Str)
-		{
-			std::wstring_convert<std::codecvt_utf8<wchar_t>> myconv;
-			return myconv.from_bytes(utf8Str);
-		}
-		static inline std::string stdWstringToUTF8(const std::wstring& wStr)
-		{
-			std::wstring_convert<std::codecvt_utf8<wchar_t>> myconv;
-			return myconv.to_bytes(wStr);
-		}
 	};
 }
-
-
 
 struct ceh::Data::HDataItem
 {
@@ -62,10 +55,12 @@ struct ceh::Data::HDataItem
 
 	static inline std::string toStdString(HDataItem& item, char delimeter = ' ')
 	{
+		if (item.values.empty())
+			return item.key;
 		std::string retString = item.key + delimeter;
-		int border = item.values.size() - 1;
+		size_t border = item.values.size() - 1;
 
-		for (int i = 0; i < border; ++i)
+		for (size_t i = 0; i < border; ++i)
 		{
 			retString += item.values[i] + delimeter;
 		}
@@ -105,7 +100,8 @@ struct ceh::Data::HDataItem
 	}
 	static inline HDataItem fromStdString(std::string&& str, char delimeter = ' ')
 	{
-		return fromStdString(std::move(str),delimeter);
+		std::string tempStr = std::move(str);
+		return fromStdString(tempStr, delimeter);
 	}
 
 };
@@ -128,10 +124,12 @@ struct ceh::Data::HWDataItem
 
 	static inline std::wstring toStdWString(HWDataItem& item, wchar_t delimeter = L' ')
 	{
+		if (item.values.empty())
+			return item.key;
 		std::wstring retString = item.key + delimeter;
-		int border = item.values.size() - 1;
+		size_t border = item.values.size() - 1 ;
 
-		for (int i = 0; i < border; ++i)
+		for (size_t i = 0; i < border; ++i)
 		{
 			retString += item.values[i] + delimeter;
 		}
@@ -168,7 +166,8 @@ struct ceh::Data::HWDataItem
 	}
 	static inline HWDataItem fromStdWString(std::wstring&& str, wchar_t delimeter = L' ')
 	{
-		return fromStdWString(std::move(str), delimeter);
+		std::wstring tempStr = std::move(str);
+		return fromStdWString(tempStr, delimeter);
 	}
 };
 
@@ -178,23 +177,33 @@ public:
 	HData(const char* filename, int delimiter = ' ');
 	~HData();
 
-	HDataItem& operator[](int idx);
+	HDataItem& operator[](size_t idx);
 
 	void load();
 	void save();
 
 	bool fail();
-	int size();
+	size_t size();
 
 	int find(ceh::Data::HDataItem& x);
-	HDataItem& access(int idx);
-	bool modify(int idx, ceh::Data::HDataItem& newItem);
-	bool remove(int idx);
+	int find(ceh::Data::HDataItem&& x);
+	int findKey(ceh::Data::HDataItem_key & x);
+	int findKey(ceh::Data::HDataItem_key && x);
+	int findValue(ceh::Data::HDataItem_value& x,size_t valueIdx);
+	int findValue(ceh::Data::HDataItem_value&& x, size_t valueIdx);
+	int findValues(ceh::Data::HDataItem_values& x);
+	int findValues(ceh::Data::HDataItem_values&& x);
+
+	HDataItem& access(size_t idx);
+	bool modify(size_t idx, ceh::Data::HDataItem& newItem);
+	bool remove(size_t idx);
 	void append(ceh::Data::HDataItem& newItem);
 	void append(ceh::Data::HDataItem&& newItem);
 private:
+	std::string filename;
 	int delimiter;
-	std::fstream fileObject;
+	std::ifstream in_fileObject;
+	std::ofstream out_fileObject;
 	std::vector<HDataItem> dataBuffer;
 };
 
@@ -204,23 +213,33 @@ public:
 	HWData(const char* filename, wchar_t delimiter = L' ');
 	~HWData();
 
-	HWDataItem& operator[](int idx);
+	HWDataItem& operator[](size_t idx);
 
 	void load();
 	void save();
 
 	bool fail();
-	int size();
+	size_t size();
 
 	int find(ceh::Data::HWDataItem& x);
-	HWDataItem& access(int idx);
-	bool modify(int idx, ceh::Data::HWDataItem& newItem);
-	bool remove(int idx);
+	int find(ceh::Data::HWDataItem&& x);
+	int findKey(ceh::Data::HWDataItem_key& x);
+	int findKey(ceh::Data::HWDataItem_key&& x);
+	int findValue(ceh::Data::HWDataItem_value& x, size_t valueIdx);
+	int findValue(ceh::Data::HWDataItem_value&& x, size_t valueIdx);
+	int findValues(ceh::Data::HWDataItem_values& x);
+	int findValues(ceh::Data::HWDataItem_values&& x);
+	HWDataItem& access(size_t idx);
+	bool modify(size_t idx, ceh::Data::HWDataItem& newItem);
+	bool remove(size_t idx);
 	void append(ceh::Data::HWDataItem& newItem);
 	void append(ceh::Data::HWDataItem&& newItem);
+
 private:
+	std::wifstream in_fileObject;
+	std::wofstream out_fileObject;
+	std::string filename;
 	wchar_t delimiter;
-	std::wfstream fileObject;
 	std::vector<HWDataItem> dataBuffer;
 };
 
