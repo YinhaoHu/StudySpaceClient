@@ -15,7 +15,7 @@ HWData::HWData(const char* _filename, wchar_t _delimiter)
 
 HWData::~HWData()
 {
-	
+
 }
 
 HWDataItem& HWData::operator[](size_t idx)
@@ -27,9 +27,9 @@ void HWData::load()
 {
 	wstring lineStr;
 	HWDataItem item;
-	
+
 	dataBuffer.clear();
-	while (getline(in_fileObject, lineStr,L'\n').good())
+	while (getline(in_fileObject, lineStr, L'\n').good())
 	{
 		item = HWDataItem::fromStdWString(lineStr);
 		dataBuffer.push_back(item);

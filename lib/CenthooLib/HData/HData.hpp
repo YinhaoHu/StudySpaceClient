@@ -1,4 +1,4 @@
-#ifndef _HDATA_HPP_
+﻿#ifndef _HDATA_HPP_
 #define _HDATA_HPP_
 
 //	Centhoo Library: HData
@@ -83,7 +83,7 @@ struct ceh::Data::HDataItem
 		auto beginIter = str.begin(), endIter = find(beginIter, str.end(), delimeter);
 		key.resize(endIter - beginIter);
 		copy(beginIter, endIter, key.begin());
-		while(endIter!=str.end())
+		while (endIter != str.end())
 		{
 			beginIter = endIter + 1;
 			endIter = find(beginIter, str.end(), delimeter);
@@ -96,7 +96,7 @@ struct ceh::Data::HDataItem
 		item.values = values;
 
 		return item;
-		
+
 	}
 	static inline HDataItem fromStdString(std::string&& str, char delimeter = ' ')
 	{
@@ -127,7 +127,7 @@ struct ceh::Data::HWDataItem
 		if (item.values.empty())
 			return item.key;
 		std::wstring retString = item.key + delimeter;
-		size_t border = item.values.size() - 1 ;
+		size_t border = item.values.size() - 1;
 
 		for (size_t i = 0; i < border; ++i)
 		{
@@ -187,9 +187,9 @@ public:
 
 	int find(ceh::Data::HDataItem& x);
 	int find(ceh::Data::HDataItem&& x);
-	int findKey(ceh::Data::HDataItem_key & x);
-	int findKey(ceh::Data::HDataItem_key && x);
-	int findValue(ceh::Data::HDataItem_value& x,size_t valueIdx);
+	int findKey(ceh::Data::HDataItem_key& x);
+	int findKey(ceh::Data::HDataItem_key&& x);
+	int findValue(ceh::Data::HDataItem_value& x, size_t valueIdx);
 	int findValue(ceh::Data::HDataItem_value&& x, size_t valueIdx);
 	int findValues(ceh::Data::HDataItem_values& x);
 	int findValues(ceh::Data::HDataItem_values&& x);
