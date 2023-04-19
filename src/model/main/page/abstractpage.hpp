@@ -1,7 +1,7 @@
 #ifndef _ABSTRACTPAGE_HPP_
 #define _ABSTRACTPAGE_HPP_
 
-#include"../../../standard.hpp"
+#include"standard.hpp"
 
 #include<QtCore/QObject>
 #include<QtWidgets/QWidget>

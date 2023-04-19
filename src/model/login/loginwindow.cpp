@@ -1,13 +1,110 @@
-﻿#include"loginwindow.hpp"
-#include"../../standard.hpp"
-#include"../../net/net.hpp"
+﻿//For loginwindow.
+
+#define _CRT_SECURE_NO_WARNINGS
+
+#include"loginwindow.hpp"
+#include"CenthooLib/HData/HData.hpp"
+#include"CenthooLib/HTime/HTime.hpp"
+#include"standard.hpp"
+#include"net/net.hpp"
+#include"data/local_datamanager.hpp"
+
+#include<string>
 #include<mutex>
+
 #include<QtCore/qobject.h>
+
+using namespace std;
+using namespace ceh::Data;
+using namespace ceh::Time;
 
 extern standard::dataStruct::UserData userData;//From mainwindow.cpp
 extern net::Client* clientNet;//From driver.cpp
 extern std::mutex netMutexLock;//From driver.cpp
 
+//private:
+uint LoginWindow::checkAutoLogin() const
+{
+	HData loginInfo(standard::file::loginInfoFile);
+	HTime timeinfo;
+
+	loginInfo.load();
+	if (loginInfo.size() == 0)
+	{
+		loginInfo.save();
+		return 3;
+	}
+
+	string& id = loginInfo[0].key;
+	string& expiry_year = loginInfo[0].values[0];
+	string& expiry_month = loginInfo[0].values[1];
+	string& expiry_day = loginInfo[0].values[2];
+	uint ret;
+
+	if (
+		(atoi(expiry_year.c_str()) >= timeinfo.getYearByInt())
+		&& (atoi(expiry_month.c_str()) >= timeinfo.getMonthByInt())
+		&& (atoi(expiry_day.c_str()) >= timeinfo.getMDayByInt())
+		)
+	{
+		userData.selfID = QString::fromStdString(id);
+
+		char32_t* msg = new char32_t[net::sockMsgLen];
+		QString qmsg = "AUTOLOGIN ";
+		qmsg.append(id.c_str());
+
+		memset(msg, 0, net::sockMsgBytes);
+		memcpy(msg, qmsg.toStdU32String().c_str(), net::sockMsgBytes);
+
+		{
+			unique_lock lock(netMutexLock);
+			clientNet->sendMsg(msg);
+			auto isOnline = clientNet->easyRecv_QString_U32(); 
+
+			if (isOnline->compare(QString("AUTOLOGIN_ISONLINE")) == 0)
+				ret = 2;
+			else
+				ret = 1;
+		}
+		
+	}
+	else
+		ret = 3;
+
+	loginInfo.save();
+	//1:ok --- 2:online -- 3:need to login
+	return ret;
+}
+
+void LoginWindow::setAutoLoginData()const
+{
+	HTime timeInfo;
+	HData loginInfo(standard::file::loginInfoFile);
+
+	loginInfo.load();
+	HDataItem fieldItem;
+	//Format: USERID YEAR MONTH DAY
+
+	QString year_qstring, month_qstring, day_qstring;
+	year_qstring.setNum(timeInfo.getYearByInt());
+	month_qstring.setNum(timeInfo.getMonthByInt());
+	day_qstring.setNum(timeInfo.getMDayByInt()+this->autoLoginExpiryDays);
+
+	fieldItem.values.resize(3);
+	fieldItem.key = userData.selfID.toStdString();
+	fieldItem.values[0] = year_qstring.toStdString();
+	fieldItem.values[1] = month_qstring.toStdString();
+	fieldItem.values[2] = day_qstring.toStdString();
+
+	if (loginInfo.size() == 0)
+		loginInfo.append(std::move(fieldItem));
+	else
+		loginInfo[0] = fieldItem;
+
+	loginInfo.save();
+}
+
+//public:
 LoginWindow::LoginWindow(QWidget* parent)
 	:QWidget(parent)
 {
@@ -24,6 +121,7 @@ void LoginWindow::setupView() {
 	this->infoWindow = new InfoWindow;
 	view.setupUi(this);
 }
+
 void LoginWindow::setupDelegate()
 {
 	QObject::connect(view.loginButton, SIGNAL(pressed()), this,SLOT(doLogin()));
@@ -62,6 +160,7 @@ void LoginWindow::mousePressEvent(QMouseEvent* event)
 		windowMovingOn = true;
 	}
 }
+
 void LoginWindow::mouseReleaseEvent(QMouseEvent* event)
 {
 	if (windowMovingOn)
@@ -79,6 +178,7 @@ void LoginWindow::mouseReleaseEvent(QMouseEvent* event)
 	}
 }
 
+//private slots:
 void LoginWindow::doLogin() {
 	QString number, password;
 	int loginValid, loginState;
@@ -106,9 +206,10 @@ void LoginWindow::doLogin() {
 	loginState = recvLoginState();
 	netMutexLock.unlock();
 
-	if (loginState == 0)
+	if (loginState == 0)//Login permited.
 	{
 		userData.selfID = number;
+		setAutoLoginData();
 		emit properLogin();
 		delete this;
 	}
@@ -120,6 +221,24 @@ void LoginWindow::doLogin() {
 		informUser(U"该用户已在线");
 	else
 		informUser(U"与服务器连接失败");
+}
+
+//public slots:
+void LoginWindow::launch()
+{
+	auto autoLoginStatus = checkAutoLogin();
+	switch (autoLoginStatus)
+	{
+	case 1:
+		emit properLogin();
+		delete this;
+		break;
+	case 2:
+		informUser(U"该用户已在线");
+		break;
+	case 3:
+		this->show();
+	}
 }
 
 int LoginWindow::checkLogin(QString& number, QString& password)
@@ -139,6 +258,7 @@ int LoginWindow::checkLogin(QString& number, QString& password)
 	
 	return 0;
 }
+
 void LoginWindow::sendLoginInfo(QString& number, QString& password) {
 	QString msg;
 	
@@ -149,6 +269,7 @@ void LoginWindow::sendLoginInfo(QString& number, QString& password) {
 	
 	clientNet->sendMsg(msg.toStdU32String().c_str());
 }
+
 int LoginWindow::recvLoginState() {
 	char32_t* msg;
 	std::u32string msgStr;
@@ -175,6 +296,7 @@ int LoginWindow::recvLoginState() {
 	delete[] msg;
 	return statusCode;
 }
+
 void LoginWindow::informUser(const char32_t* msg) {
 	tipWindow->inform(msg);
 }

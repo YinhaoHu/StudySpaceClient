@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'mainwindowHQOQpF.ui'
+** Form generated from reading UI file 'mainwindowyMgzSq.ui'
 **
 ** Created by: Qt User Interface Compiler version 6.4.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef MAINWINDOWHQOQPF_H
-#define MAINWINDOWHQOQPF_H
+#ifndef MAINWINDOWYMGZSQ_H
+#define MAINWINDOWYMGZSQ_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
@@ -33,7 +33,8 @@ public:
     QWidget* funcOptionArea;
     QPushButton* comChatOption;
     QPushButton* engLearnOption;
-    QPushButton* engLearnOption_2;
+    QPushButton* userinfoOption;
+    QPushButton* contactsOption;
 
     void setupUi(QWidget* mainwindowui)
     {
@@ -95,10 +96,15 @@ public:
         engLearnOption->setGeometry(QRect(4, 120, 41, 41));
         engLearnOption->setStyleSheet(QString::fromUtf8("background-color: rgb(240, 240, 240);\n"
             "border-radius : 16px;"));
-        engLearnOption_2 = new QPushButton(funcOptionArea);
-        engLearnOption_2->setObjectName("engLearnOption_2");
-        engLearnOption_2->setGeometry(QRect(4, 180, 41, 41));
-        engLearnOption_2->setStyleSheet(QString::fromUtf8("background-color: rgb(240, 240, 240);\n"
+        userinfoOption = new QPushButton(funcOptionArea);
+        userinfoOption->setObjectName("userinfoOption");
+        userinfoOption->setGeometry(QRect(4, 680, 41, 41));
+        userinfoOption->setStyleSheet(QString::fromUtf8("background-color: rgb(240, 240, 240);\n"
+            "border-radius : 16px;"));
+        contactsOption = new QPushButton(funcOptionArea);
+        contactsOption->setObjectName("contactsOption");
+        contactsOption->setGeometry(QRect(4, 180, 41, 41));
+        contactsOption->setStyleSheet(QString::fromUtf8("background-color: rgb(240, 240, 240);\n"
             "border-radius : 16px;"));
 
         retranslateUi(mainwindowui);
@@ -116,7 +122,8 @@ public:
         logo->setText(QCoreApplication::translate("mainwindowui", "<html><head/><body><p align=\"center\"><span style=\" font-size:22pt; font-weight:700; font-style:italic;\">Study Space</span></p></body></html>", nullptr));
         comChatOption->setText(QCoreApplication::translate("mainwindowui", "Chat", nullptr));
         engLearnOption->setText(QCoreApplication::translate("mainwindowui", "Eng", nullptr));
-        engLearnOption_2->setText(QCoreApplication::translate("mainwindowui", "Eg", nullptr));
+        userinfoOption->setText(QCoreApplication::translate("mainwindowui", "Me", nullptr));
+        contactsOption->setText(QCoreApplication::translate("mainwindowui", "Con", nullptr));
     } // retranslateUi
 
 };
@@ -127,4 +134,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // MAINWINDOWHQOQPF_H
+#endif // MAINWINDOWYMGZSQ_H

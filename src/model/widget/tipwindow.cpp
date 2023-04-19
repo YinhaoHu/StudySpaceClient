@@ -1,6 +1,8 @@
 ﻿#include"tipwindow.hpp"
 
 #include<qobject.h>
+#include<qfontmetrics.h>
+#include<qstring.h>
 
 TipWindow::TipWindow(QWidget* parent):
 	QWidget(parent),showing(false)
@@ -14,7 +16,8 @@ TipWindow::TipWindow(QWidget* parent):
 void TipWindow::setupView() {
 	setWindowFlags(Qt::FramelessWindowHint);
 	setWindowOpacity(0.85);
-	view.setupUi(this);
+	view.setupUi(this);	
+	view.msgLabel->setAlignment(Qt::AlignCenter);
 	view.msgLabel->setText("");
 }
 
@@ -33,8 +36,16 @@ void TipWindow::inform(const char32_t* msg)
 {
 	if (showing)
 		closeWindow();
-	view.msgLabel->setAlignment(Qt::AlignCenter);
 	view.msgLabel->setText(QString::fromStdU32String(msg));
+	show();
+	showing = true;
+}
+
+void TipWindow::inform(QString&& msg)
+{
+	if (showing)
+		closeWindow();
+	view.msgLabel->setText(msg);
 	show();
 	showing = true;
 }

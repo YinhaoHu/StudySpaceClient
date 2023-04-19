@@ -6,13 +6,19 @@
 #include<WinSock2.h>
 #include<ws2tcpip.h>
 
+#include<qstring.h>
+#include<qsharedpointer.h>
+#include<memory>
 
 namespace net 
 {
-	const int maxFieldSize = 64;//Limites bytes for sock field.
-	const int sockMsgBytes = 4096;//Limit bytesof recv() and send()
-	const int sockMsgLen = 1024;
+	const size_t maxFieldSize = 64;//Limites bytes for sock field.
+	const size_t sockMsgBytes = 4096;//Limit bytesof recv() and send()
+	const size_t sizeInfoBytes = 16;
+	const size_t sockMsgLen = 1024;
+
 	struct serverInfo;
+	struct NetFileNode;
 	class Client;
 
 	extern inline void getConfig(net::serverInfo* result);
@@ -26,6 +32,16 @@ char port[net::maxFieldSize];
 };
 
 
+struct net::NetFileNode {
+	size_t bytes;
+	std::shared_ptr<char> data;
+
+	NetFileNode(size_t _bytes = 0UL, char* _data = nullptr)
+		:bytes(_bytes), data(std::shared_ptr<char>(_data))
+	{}
+	~NetFileNode(){}
+};
+
 class net::Client {
 public:
 	Client(const serverInfo* info);
@@ -37,6 +53,17 @@ public:
 	int recvMsg(char32_t* result);
 	int recvFile(char*fileBuffer,int bytes);
 	void sendFile(char* fileBuffer, int bytes);
+
+	void easySend_Msg(QString&& msg);
+
+	void easySend_Request(QString&& request, uint senderID);
+	void easySend_Request(QString&& request, QString&& senderID);
+	void easySend_U32String(QString&& qstring);
+	void easySend_U32String(std::u32string&& u32string);
+	void easySend_File(QString&& filename);
+
+	QSharedPointer<QString> easyRecv_QString_U32();
+	std::shared_ptr<net::NetFileNode> easyRecv_File();
 
 	SOCKET getSocket()const;
 	int getErrNum() const;

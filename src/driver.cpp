@@ -11,6 +11,7 @@
 net::Client* clientNet;
 std::mutex netMutexLock;
 
+
 static inline void checkLocalConfig();
 static inline int setupNet();
 static inline void startProgram();
@@ -20,7 +21,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     startProgram();
-
+    
     return a.exec();
 }
 
@@ -61,12 +62,12 @@ static inline void startProgram()
     MainWindow* mainWindow = new MainWindow;
     
     checkLocalConfig();
-    
-    if(0==setupNet())
-    {
-        loginWindow->show();
 
+    if(0 == setupNet())
+    {
         QObject::connect(loginWindow, SIGNAL(properLogin()), mainWindow, SLOT(init()));
         QObject::connect(loginWindow, SIGNAL(properLogin()), loginWindow, SLOT(close()));
+
+        loginWindow->launch();
     }
 }

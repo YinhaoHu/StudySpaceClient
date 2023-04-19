@@ -55,7 +55,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;è´¦å·&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;ÕËºÅ&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
   <widget class="QLabel" name="passwordLabel">
@@ -68,7 +68,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;å¯†ç &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;ÃÜÂë&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
   <widget class="QPushButton" name="loginButton">
@@ -86,7 +86,7 @@ background-color : rgb(231, 231, 231);
 font-size:24px;</string>
    </property>
    <property name="text">
-    <string>ç™»å½•</string>
+    <string>µÇÂ¼</string>
    </property>
    <property name="iconSize">
     <size>
@@ -146,7 +146,7 @@ font-size:24px;</string>
     <string notr="true">border-radius : 24px;</string>
    </property>
    <property name="text">
-    <string>â€”</string>
+    <string>¡ª</string>
    </property>
   </widget>
   <widget class="QPushButton" name="closeButton">
@@ -180,7 +180,7 @@ color: rgb(162, 162, 162);
 font-size: 14px;</string>
    </property>
    <property name="text">
-    <string>æ³¨å†Œ</string>
+    <string>×¢²á</string>
    </property>
   </widget>
   <widget class="QPushButton" name="moreinfoButton">
@@ -198,7 +198,7 @@ color: rgb(162, 162, 162);
 font-size: 14px;</string>
    </property>
    <property name="text">
-    <string>æ›´å¤š</string>
+    <string>¸ü¶à</string>
    </property>
   </widget>
   <zorder>mainBackgroundLabel</zorder>

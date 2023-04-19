@@ -1,5 +1,6 @@
 ﻿#include"comchatpage.hpp"
 
+#include"data/runtime_datamanager.hpp"
 #include"../../widget/tipwindow.hpp"
 #include"../../../standard.hpp"
 #include"../../../net/netcontroller.hpp"
@@ -17,7 +18,7 @@ using namespace Page;
 extern net::NetController* netController;//From mainwindow.cpp
 extern net::Client* clientNet;//From driver.cpp
 extern standard::dataStruct::UserData userData;
-
+extern QSharedPointer<data::Runtime_DataManager> runtime_dataManager;
 
 //private:
 void ComChat::setupView() {
@@ -58,11 +59,12 @@ void ComChat::keyPressEvent(QKeyEvent* event)
 		view.sendMsgButton->click();
 }
 
-void ComChat::addRecvMsg(QString& msg, QString& username, QPixmap& profile)
+void ComChat::addRecvMsg(QString&& msg, QString&& username, QPixmap&& profile)
 {
 	QScrollBar* scrollBar;
 	
-	messageWidget->addMsg(msg, profile, username, 0);
+	messageWidget->addMsg(std::move(msg), 
+		std::move(profile), std::move(username), Message::Receiver);
 
 	scrollBar = view.recvMsgBlock->verticalScrollBar();
 	scrollBar->setValue(scrollBar->maximum());
@@ -86,8 +88,10 @@ void ComChat::addSentMsg() {
 	}
 
 	//local display
-	messageWidget->addMsg(msg, *selfProfile,
-		userData.selfUsername, 1);
+	messageWidget->addMsg(std::move(msg), 
+		runtime_dataManager->get_personalInfo_smallProfile(),
+		runtime_dataManager->get_personalInfo_username(), 
+		Message::Sender);
 	view.sendMsgBlock->clear();
 
 	scrollBar = view.recvMsgBlock->verticalScrollBar();
@@ -110,7 +114,7 @@ void ComChat::addSentMsg() {
 
 void ComChat::comChatRecv_update() 
 {
-	addRecvMsg(netController->comChatRecv_data.msg,
-		netController->comChatRecv_data.sendername,
-		netController->comChatRecv_data.senderProfile);
+	addRecvMsg(std::move(netController->comChatRecv_data.msg),
+		std::move(netController->comChatRecv_data.sendername),
+		std::move(netController->comChatRecv_data.senderProfile));
 }

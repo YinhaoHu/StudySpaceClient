@@ -29,7 +29,7 @@
     <string notr="true">background-color:rgb(170, 255, 255);</string>
    </property>
    <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt; font-weight:700;&quot;&gt;å…³äºŽ Study Space&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt; font-weight:700;&quot;&gt;¹ØÓÚ Study Space&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
   <widget class="QPushButton" name="minimizeButton">
@@ -46,7 +46,7 @@
 background-color:rgb(170, 255, 255);</string>
    </property>
    <property name="text">
-    <string>â€”</string>
+    <string>¡ª</string>
    </property>
   </widget>
   <widget class="QPushButton" name="closeButton">
@@ -102,7 +102,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <item>
      <widget class="QLabel" name="copyrightLabel">
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Copyright Â©2023-2023 Henry Hoo. All Right Reserved.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Copyright ?2023-2023 Henry Hoo. All Right Reserved.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </item>

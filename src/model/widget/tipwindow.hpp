@@ -1,7 +1,7 @@
 #ifndef _TIPWINDOW_HPP_
 #define _TIPWINDOW_HPP_
 
-#include"../../view/widget/ui_tipwindow.hpp"
+#include"view/widget/ui_tipwindow.hpp"
 
 #include<QtWidgets/qwidget.h>
 #include<QtGui/qevent.h>
@@ -14,6 +14,7 @@ public:
 	void setupView();
 	void setupDelegate();
 	void inform(const char32_t* msg);
+	void inform(QString&& msg);
 
 	void keyPressEvent(QKeyEvent* event)override;
 signals:

@@ -88,7 +88,7 @@ border-radius: 32px;</string>
 border-radius: 32px;</string>
     </property>
     <property name="text">
-     <string>â€”</string>
+     <string>¡ª</string>
     </property>
     <property name="checkable">
      <bool>true</bool>
@@ -202,7 +202,24 @@ border-radius : 16px;</string>
      <string>Eng</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="engLearnOption_2">
+   <widget class="QPushButton" name="userinfoOption">
+    <property name="geometry">
+     <rect>
+      <x>4</x>
+      <y>680</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(240, 240, 240);
+border-radius : 16px;</string>
+    </property>
+    <property name="text">
+     <string>Me</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="contactsOption">
     <property name="geometry">
      <rect>
       <x>4</x>
@@ -216,7 +233,7 @@ border-radius : 16px;</string>
 border-radius : 16px;</string>
     </property>
     <property name="text">
-     <string>Eg</string>
+     <string>Con</string>
     </property>
    </widget>
   </widget>

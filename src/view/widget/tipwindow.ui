@@ -39,17 +39,20 @@ opacity: 0.1;</string>
   <widget class="QLabel" name="msgLabel">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>10</y>
-     <width>211</width>
-     <height>61</height>
+     <x>30</x>
+     <y>15</y>
+     <width>240</width>
+     <height>70</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">font-size:26px;</string>
    </property>
    <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:22pt;&quot;&gt;提示内容&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;提示内容&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
    </property>
   </widget>
  </widget>

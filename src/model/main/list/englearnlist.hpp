@@ -17,7 +17,6 @@ private:
 public:
 	EngLearn(QWidget* parent) :QWidget(parent)
 	{
-		setParent(parent);
 		view.setupUi(this);
 
 		close();

@@ -1,9 +1,9 @@
 #ifndef _CHATPAGE_HPP_
 #define _CHATPAGE_HPP_
 
-#include"../../../view/main/page/ui_comchatpage.hpp"
-#include"../../widget/messagewidget.hpp"
-#include"../../widget/tipwindow.hpp"
+#include"view/main/page/ui_comchatpage.hpp"
+#include"model/widget/messagewidget.hpp"
+#include"model/widget/tipwindow.hpp"
 
 #include<qobject.h>
 #include<qpixmap.h>
@@ -32,7 +32,7 @@ public:
 
 	void setupNetController();
 
-	void addRecvMsg(QString& msg, QString& username, QPixmap& profile);
+	void addRecvMsg(QString&& msg, QString&&username, QPixmap&& profile);
 
 	void keyPressEvent(QKeyEvent* event)override;
 

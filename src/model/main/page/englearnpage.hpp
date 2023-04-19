@@ -1,7 +1,7 @@
 #ifndef _ENGLEARNPAGE_HPP_
 #define _ENGLEARNPAGE_HPP_
 
-#include"../../../view/main/page/ui_englearnpage.hpp"
+#include"view/main/page/ui_englearnpage.hpp"
 
 namespace Page {
 	class EngLearn;

@@ -29,7 +29,7 @@
     <string notr="true">background-color:rgb(170, 255, 255);</string>
    </property>
    <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt; font-weight:700;&quot;&gt;æ³¨å†ŒåŠ å…¥Study Space&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt; font-weight:700;&quot;&gt;×¢²á¼ÓÈëStudy Space&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
   <widget class="QPushButton" name="registerButton">
@@ -47,7 +47,7 @@ border-radius: 16px;
 background-color: rgb(213, 213, 213);</string>
    </property>
    <property name="text">
-    <string>æ³¨å†Œ</string>
+    <string>×¢²á</string>
    </property>
    <property name="iconSize">
     <size>
@@ -104,7 +104,7 @@ background-color: rgb(213, 213, 213);</string>
        </font>
       </property>
       <property name="text">
-       <string>ç”¨æˆ·å</string>
+       <string>ÓÃ»§Ãû</string>
       </property>
      </widget>
     </item>
@@ -145,7 +145,7 @@ background-color: rgb(236, 236, 236);</string>
        </font>
       </property>
       <property name="text">
-       <string>å¯†ç </string>
+       <string>ÃÜÂë</string>
       </property>
      </widget>
     </item>
@@ -157,7 +157,7 @@ background-color: rgb(236, 236, 236);</string>
        </font>
       </property>
       <property name="text">
-       <string>ç¡®è®¤å¯†ç </string>
+       <string>È·ÈÏÃÜÂë</string>
       </property>
      </widget>
     </item>
@@ -169,7 +169,7 @@ background-color: rgb(236, 236, 236);</string>
        </font>
       </property>
       <property name="text">
-       <string>é‚®ç®±</string>
+       <string>ÓÊÏä</string>
       </property>
      </widget>
     </item>
@@ -187,7 +187,7 @@ background-color: rgb(236, 236, 236);</string>
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="text">
-       <string>æ³¨å†Œç </string>
+       <string>×¢²áÂë</string>
       </property>
      </widget>
     </item>
@@ -329,7 +329,7 @@ background-color: rgb(225, 225, 225);</string>
 background-color:rgb(170, 255, 255);</string>
    </property>
    <property name="text">
-    <string>â€”</string>
+    <string>¡ª</string>
    </property>
   </widget>
   <widget class="QPushButton" name="closeButton">

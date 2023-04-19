@@ -1,10 +1,12 @@
 ﻿// The core program of mainwindow
 #include"mainwindow.hpp"
 
-#include"../widget/tipwindow.hpp"
-#include"../../standard.hpp"
-#include"../../net/net.hpp"
-#include"../../net/netcontroller.hpp"
+#include"model/widget/tipwindow.hpp"
+#include"standard.hpp"
+#include"net/net.hpp"
+#include"net/netcontroller.hpp"
+#include"data/runtime_datamanager.hpp"
+#include"data/local_datamanager.hpp"
 
 #include<fstream>
 #include<mutex>
@@ -22,6 +24,10 @@ using namespace std;
 //Shared variables.
 standard::dataStruct::UserData userData;
 net::NetController* netController;
+std::mutex NetControllerMutexLock;
+TipWindow* tipWindow;
+QSharedPointer<data::Runtime_DataManager> runtime_dataManager(new data::Runtime_DataManager);
+QSharedPointer<data::Local_DataManager> local_dataManager(new data::Local_DataManager);
 
 extern net::Client* clientNet;
 extern std::mutex netMutexLock;
@@ -34,21 +40,25 @@ void MainWindow::setupView() {
 
 void MainWindow::setupDelegate() const{
 	//Window Connection
-	QObject::connect(view.minimizeButton, SIGNAL(pressed()), SLOT(toggle()));
-	QObject::connect(view.minimizeButton, SIGNAL(pressed()), this,SLOT(showMinimized()));
-	QObject::connect(view.closeButton, SIGNAL(pressed()), this, SLOT(userQuit()));
+	connect(view.minimizeButton, SIGNAL(pressed()), SLOT(toggle()));
+	connect(view.minimizeButton, SIGNAL(pressed()), this,SLOT(showMinimized()));
+	connect(view.closeButton, SIGNAL(pressed()), this, SLOT(userQuit()));
+	
+	//Miscellanea
+	connect(view.userinfoOption, SIGNAL(pressed()), this, SLOT(userinfoOptionSlot()));
 
 	//Option Connection    --- For registering Page&List only.
-	QObject::connect(view.comChatOption, SIGNAL(pressed()), this, SLOT(comChatOptionSlot()));
-	QObject::connect(view.engLearnOption, SIGNAL(pressed()), this, SLOT(engLearnOptionSlot()));
-	QObject::connect(view.engLearnOption_2, SIGNAL(pressed()), this, SLOT(egOptionSlot()));
+	connect(view.comChatOption, SIGNAL(pressed()), this, SLOT(comChatOptionSlot()));
+	connect(view.engLearnOption, SIGNAL(pressed()), this, SLOT(engLearnOptionSlot()));
+	connect(view.contactsOption, SIGNAL(pressed()), this, SLOT(contactsOptionSlot()));
+	
 }
 
 void MainWindow::setupNetController() const{
 	Pages.comChat->setupNetController();
 }
 
-void MainWindow::serveFor(int option) 
+void MainWindow::serveFor(OptionList option) 
 {
 	if(status.curList != nullptr)
 		status.curList->close();
@@ -65,9 +75,9 @@ void MainWindow::serveFor(int option)
 		status.curList = Lists.engLearn;
 		status.curPage = Pages.engLearn;
 		break;
-	case OptionList::egService:
-		status.curList = Lists.service;
-		status.curPage = Pages.service;
+	case OptionList::contacts:
+		status.curList = Lists.contacts;
+		status.curPage = Pages.contacts;
 		break;
 	}
 
@@ -83,8 +93,16 @@ void MainWindow::generateService()
 	Pages.engLearn = new Page::EngLearn(view.mainArea);
 	Lists.engLearn = new List::EngLearn(view.listArea);
 
-	Pages.service = new Page::ServicePage(view.mainArea);
-	Lists.service = new List::ServiceList(view.listArea);
+	//Namespace might cause problem, don't use it anymore.
+	Pages.contacts = new ContactsPage(view.mainArea);
+	Lists.contacts = new ContactsList(view.listArea);
+	Lists.contacts->setRelatedPage(Pages.contacts);
+}
+
+void MainWindow::generateMiscellanea()
+{
+	::tipWindow = new TipWindow;
+	userinfo_selfshow_window = new Userinfo_SelfShow_Window();
 }
 
 //public:
@@ -127,7 +145,6 @@ MainWindow::MainWindow(QWidget* parent)
 	status.mousePoint = QPoint();
 
 	setupView();
-	setupDelegate();
 
 	setMouseTracking(true);
 
@@ -136,60 +153,48 @@ MainWindow::MainWindow(QWidget* parent)
 
 //public slots:
 void MainWindow::init() {
-	fstream selfProfileFile;
-	char* selfProfileBuffer, fileSizeStr[standard::size::fieldBytes];
-	char32_t* selfUsernameBuffer;
-	int profileBufferSize;
+	auto recv0_id = clientNet->easyRecv_QString_U32();
+	auto recv1_username = clientNet->easyRecv_QString_U32();
+	auto recv2_intro = clientNet->easyRecv_QString_U32();
+	auto recv3_profile = clientNet->easyRecv_File();
 
-	//Allocate
-	selfUsernameBuffer = new char32_t[net::sockMsgLen];
-	selfProfileFile.open(standard::file::selfProfile, ios_base::out);
-	
-	memset(selfUsernameBuffer,0,net::sockMsgBytes);
-	memset(fileSizeStr, 0, standard::size::fieldBytes);
-
-	//Recv
-	clientNet->recvMsg(selfUsernameBuffer);
-	clientNet->recvFile(fileSizeStr, standard::size::fieldBytes);
-	char* end;		
-	
-	profileBufferSize = strtol( fileSizeStr, &end, 10);
-	selfProfileBuffer = new char[profileBufferSize];
-	memset(selfProfileBuffer, 0, profileBufferSize);
-		
-	clientNet->recvFile(selfProfileBuffer, profileBufferSize);
 	//Intermidiate
-	auto fd = fopen(standard::file::selfProfile,"wb");
-	fwrite(selfProfileBuffer, sizeof(char), profileBufferSize, fd);
-	fclose(fd);
-	
+	auto profileFile = fopen(standard::file::selfProfile,"wb");
+	fwrite(recv3_profile->data.get(), sizeof(char), recv3_profile->bytes, profileFile);
+	fclose(profileFile);
+
 	/*
 	Initilize: 
-		1)		userData struct, 
-		2)		info area, 
-		3)		net controller thread.
-		4)		allocate memory for service class.-> generateService()
+		*)		tipwinodw
+		*)		net controller thread.
+		*)		allocate memory for service class.-> generateService(),generateMiscellanea().
+		*)		related global variables: 
 	*/
-	userData.selfUsername = QString::fromStdU32String(selfUsernameBuffer);
-	userData.selfProfileFilename = standard::file::selfProfile;
-	selfProfileFile.open(standard::file::selfProfile, ios_base::in);
 
-	view.usernameLabel->setText(userData.selfUsername);
-	view.profileLabel->setPixmap(QPixmap(standard::file::selfProfile));
-	selfProfileFile.close();
+	//Initialize runtime_dataManager
+	local_dataManager->setupLocalDataInfo(recv0_id->toLong());
 
-	netController = new net::NetController;
+	runtime_dataManager->add_personalInfo_smallProfileObject(view.profileLabel);
+	runtime_dataManager->add_personalInfo_usernameObject(view.usernameLabel);
+
+	runtime_dataManager->update_personalInfo_profile();
+	runtime_dataManager->update_personalInfo_username(std::move(*recv1_username));
+	runtime_dataManager->update_personalInfo_intro(std::move(*recv2_intro));
+
+	::netController = new net::NetController;
 	std::thread netControllerThread(net::netControllerEntry, netController);
 	netControllerThread.detach();
-	
+
 	generateService();
+	generateMiscellanea();
+	setupDelegate();
+
+
 	//NetController Register
+
 	setupNetController();
 
-	//Free
-	delete[] selfProfileBuffer;
-	delete[] selfUsernameBuffer;
-	
+
 	show();
 }
 
@@ -218,7 +223,16 @@ void MainWindow::engLearnOptionSlot()
 	serveFor(OptionList::engLearn);
 }
 
-void MainWindow::egOptionSlot()
+void MainWindow::userinfoOptionSlot()
 {
-	serveFor(OptionList::egService);
+	userinfo_selfshow_window->setInfo(
+		std::move(userData.selfID), runtime_dataManager->get_personalInfo_username(),
+		QPixmap(runtime_dataManager->get_personalInfo_bigProfile()), std::move(runtime_dataManager->get_personalInfo_intro()));
+	userinfo_selfshow_window->display();
+}
+
+void MainWindow::contactsOptionSlot()
+{
+	Lists.contacts->init();
+	serveFor(OptionList::contacts);
 }

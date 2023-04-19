@@ -1,8 +1,12 @@
 ﻿#include"messagewidget.hpp"
 
+#include"../../data/runtime_datamanager.hpp"
+
 #include<QtWidgets/qlabel.h>
 #include<QtGui/qpixmap.h>
 #include<QtGui/qfontmetrics.h>
+
+extern QSharedPointer<data::Runtime_DataManager> runtime_dataManager;
 
 int MessageWidget::formatString(QString& str, QLabel& label,int maxLine,int& contentWidth)
 {
@@ -50,7 +54,9 @@ MessageWidget::MessageWidget(int rheigh, int rwidth,int msgSpacing, QWidget* par
 	setMinimumSize(rowWidth, 0);
 }
 
-void MessageWidget::addMsg(QString& msg, QPixmap& senderProfile, QString& senderUsername,int type ) {
+void MessageWidget::
+addMsg(QString&& msg, QPixmap&& senderProfile, QString&& senderUsername,Message::MessageType type,bool showName ) 
+{
 	QWidget* messageBlock;
 	QLabel* messageContent, * messageSenderProfile, *messageSenderUsername;
 	QFont messageFont("Microsoft YaHei UI",16), usernameFont("Microsoft YaHei UI", 8);
@@ -76,26 +82,27 @@ void MessageWidget::addMsg(QString& msg, QPixmap& senderProfile, QString& sender
 	messageSenderProfile->setParent(messageBlock);
 	messageSenderUsername->setParent(messageBlock);
 
-	messageSenderUsername->setText(senderUsername);
-	messageSenderProfile->setPixmap(senderProfile);
+	if(showName)
+		messageSenderUsername->setText(senderUsername);
+	messageSenderProfile->setPixmap(senderProfile.scaled(profile_width, profile_height));
 	messageSenderProfile->resize(rowHeight, rowHeight);
 	messageContent->resize(contentWidth, contentHeight);
 	messageBlock->resize(this->width(), contentHeight+border*2+nameHeight);
 
 	messageContent->setStyleSheet("background-color: rgb(225, 225, 225);border-radius:16px;");
 	messageSenderProfile->setStyleSheet("border-radius:16px;");
-	if (type == 0)
+	if (type == Message::Receiver)
 	{
 		messageSenderProfile->move(border,border);
 		messageContent->move(border*2+rowHeight,border+nameHeight);
 		messageSenderUsername->move(messageContent->x(), 0);
 	}
-	else if(type ==1)
+	else if(type == Message::Sender)
 	{
 		messageSenderProfile->move(parentWidget->width()-rowHeight-border,border);
 		messageContent->move(reamainWidth-border + rowWidth - contentWidth, border + nameHeight);
-		messageSenderUsername->move(messageSenderProfile->x() - 
-			usernameFontMetrics.horizontalAdvance(senderUsername+"   "), 0);
+		messageSenderUsername->setGeometry(0,0,messageBlock->width()-profile_width-border*2, 20);
+		messageSenderUsername->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 	}
 	messageBlock->move(0, this->height());
 
@@ -106,4 +113,10 @@ void MessageWidget::addMsg(QString& msg, QPixmap& senderProfile, QString& sender
 	messageContent->show();
 	messageSenderProfile->show(); 
 	messageBlock->show();
+
+	if(type == Message::Sender)
+	{
+		runtime_dataManager->add_personalInfo_smallProfileObject(messageSenderProfile);
+		runtime_dataManager->add_personalInfo_usernameObject(messageSenderUsername);
+	}
 }

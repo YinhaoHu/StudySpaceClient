@@ -6,8 +6,18 @@
 namespace standard {
 	namespace file {
 		 inline const char* netConfigFile = "config/netConfig.hdat";
+		 inline const char* loginInfoFile = "userdata/loginInfo.hdat";
 		 inline const char* selfProfile = "userdata/self/selfProfile.jpg";
-		 inline const char* tempFileDir = "userdata/temp/";
+	}
+	namespace dir {
+		inline const char* root = "userdata";
+		
+		inline const char* sub1_temp = "temp";
+		inline const char* sub1_friends = "friends";
+
+		inline const char* sub2_friends_profile = "profile";
+
+		inline const char* old_sub0_tempDir = "userdata/temp";//Just compatiable with comchat, do not use this!
 	}
 	
 	namespace size {
@@ -25,6 +35,7 @@ namespace standard {
 			QString selfUsername;
 			QString selfID;
 			QString selfProfileFilename;
+			QString selfIntro;
 		};
 	}
 	namespace view {
@@ -38,6 +49,10 @@ namespace standard {
 			inline constexpr int width = 200;
 			inline constexpr int height = 700;
 		}
+	}
+	namespace scale {
+		inline constexpr size_t smallProfileSideLen = 32;
+		inline constexpr size_t bigProfileSideLen = 100;
 	}
 }
 
