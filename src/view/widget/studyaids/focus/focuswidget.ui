@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FocusWidget</class>
+ <widget class="QWidget" name="FocusWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>870</width>
+    <height>700</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 255, 255);</string>
+  </property>
+  <widget class="QLabel" name="background">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>870</width>
+     <height>700</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(234, 234, 234);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="navBarBackGround">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>630</y>
+     <width>870</width>
+     <height>70</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(234, 234, 234);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QWidget" name="contentWidget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>870</width>
+     <height>621</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="startFocusButton">
+   <property name="geometry">
+    <rect>
+     <x>5</x>
+     <y>625</y>
+     <width>425</width>
+     <height>69</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-style: solid;
+border-width: 2px;
+border-color:   rgb(0, 0, 0);
+background-color:  rgb(240, 240, 240);
+border-radius: 2em;</string>
+   </property>
+   <property name="text">
+    <string>开始专注</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="dataViewButton">
+   <property name="geometry">
+    <rect>
+     <x>435</x>
+     <y>625</y>
+     <width>425</width>
+     <height>69</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-style: solid;
+border-width: 2px;
+border-color:   rgb(0, 0, 0);
+background-color:  rgb(240, 240, 240);
+border-radius: 2em;</string>
+   </property>
+   <property name="text">
+    <string>记录分析</string>
+   </property>
+  </widget>
+  <zorder>background</zorder>
+  <zorder>navBarBackGround</zorder>
+  <zorder>startFocusButton</zorder>
+  <zorder>dataViewButton</zorder>
+  <zorder>contentWidget</zorder>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

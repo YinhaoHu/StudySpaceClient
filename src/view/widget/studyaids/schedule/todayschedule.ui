@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>todayScheduleWidget</class>
+ <widget class="QWidget" name="todayScheduleWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>870</width>
+    <height>650</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QWidget" name="todolistwidget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>0</y>
+     <width>550</width>
+     <height>590</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(51, 139, 101);</string>
+   </property>
+   <widget class="QLabel" name="subtitleBar">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>40</y>
+      <width>550</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Microsoft YaHei UI</family>
+      <pointsize>10</pointsize>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(54, 142, 103);
+font: 10pt &quot;Microsoft YaHei UI&quot;;
+color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;  Month Day&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="listWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>69</y>
+      <width>550</width>
+      <height>515</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(54, 142, 103);
+</string>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="spacing">
+     <number>5</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="titleBar">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>550</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Microsoft YaHei UI</family>
+      <pointsize>20</pointsize>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(54, 142, 103);
+font: 700 20pt &quot;Microsoft YaHei UI&quot;;
+color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;  Month Day&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QLabel" name="background">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>870</width>
+     <height>650</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(54, 142, 103);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="addTaskEntryButton">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>600</y>
+     <width>550</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-style: solid;
+border-radius: 16px;
+background-color: rgb(238, 246, 243);</string>
+   </property>
+   <property name="text">
+    <string>添加任务</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="addTaskInput">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>600</y>
+     <width>450</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 16px;
+border-style: solid;
+background-color: rgb(238, 246, 243);
+font: 12pt &quot;Microsoft YaHei UI&quot;;</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="addTaskButton">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>600</y>
+     <width>40</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 16px;
+border-style: solid;
+background-color: rgb(238, 246, 243);</string>
+   </property>
+   <property name="text">
+    <string>添加</string>
+   </property>
+  </widget>
+  <zorder>background</zorder>
+  <zorder>todolistwidget</zorder>
+  <zorder>addTaskInput</zorder>
+  <zorder>addTaskButton</zorder>
+  <zorder>addTaskEntryButton</zorder>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
