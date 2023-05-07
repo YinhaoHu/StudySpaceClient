@@ -11,26 +11,43 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lib\CenthooLib\HData\HData.cpp" />
-    <ClCompile Include="lib\CenthooLib\HData\HDataItem.cpp" />
-    <ClCompile Include="lib\CenthooLib\HData\HWData.cpp" />
-    <ClCompile Include="lib\CenthooLib\HData\HWDataItem.cpp" />
     <ClCompile Include="lib\CenthooLib\HTime\HTime.cpp" />
+    <ClCompile Include="src\data\config_manager.cpp" />
+    <ClCompile Include="src\data\guard.cpp" />
     <ClCompile Include="src\data\local_datamanager.cpp" />
     <ClCompile Include="src\data\runtime_datamanager.cpp" />
-    <ClCompile Include="src\driver.cpp" />
+    <ClCompile Include="src\data\studyaids\focus_datamanager.cpp" />
+    <ClCompile Include="src\data\studyaids\todayschedule_datamanager.cpp" />
+    <ClCompile Include="src\driver.cpp">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).moc</QtMocFileName>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).moc</QtMocFileName>
+    </ClCompile>
     <ClCompile Include="src\model\login\infowindow.cpp" />
     <ClCompile Include="src\model\login\loginwindow.cpp" />
     <ClCompile Include="src\model\login\registerwindow.cpp" />
+    <ClCompile Include="src\model\main\list\chatlist.cpp" />
     <ClCompile Include="src\model\main\list\contactslist.cpp" />
+    <ClCompile Include="src\model\main\list\studyaidslist.cpp" />
     <ClCompile Include="src\model\main\mainwindow.cpp" />
-    <ClCompile Include="src\model\main\page\comchatpage.cpp" />
+    <ClCompile Include="src\model\main\page\chatpage.cpp" />
     <ClCompile Include="src\model\main\page\englearnpage.cpp" />
     <ClCompile Include="src\model\main\page\contactspage.cpp" />
-    <ClCompile Include="src\model\widget\messagewidget.cpp" />
+    <ClCompile Include="src\model\main\page\studyaidspage.cpp" />
+    <ClCompile Include="src\model\widget\chat\messageblock.cpp" />
+    <ClCompile Include="src\model\widget\chat\privatechatlistitem.cpp" />
+    <ClCompile Include="src\model\widget\chat\privatedialogwidget.cpp" />
+    <ClCompile Include="src\model\widget\feedback_window.cpp" />
     <ClCompile Include="src\model\widget\social\addfriendform.cpp" />
     <ClCompile Include="src\model\widget\social\friendlistitem.cpp" />
     <ClCompile Include="src\model\widget\social\notificationitem.cpp" />
+    <ClCompile Include="src\model\widget\studyaids\focus\dataview.cpp" />
+    <ClCompile Include="src\model\widget\studyaids\focus\focuswidget.cpp" />
+    <ClCompile Include="src\model\widget\studyaids\focus\startfocus.cpp" />
+    <ClCompile Include="src\model\widget\studyaids\schedule\schedulewidget.cpp" />
+    <ClCompile Include="src\model\widget\studyaids\schedule\todayschedule.cpp" />
+    <ClCompile Include="src\model\widget\studyaids\schedule\tofolistitem.cpp" />
     <ClCompile Include="src\model\widget\tipwindow.cpp" />
     <ClCompile Include="src\model\widget\userinfo_changewindow.cpp" />
     <ClCompile Include="src\model\widget\userinfo_selfshow_window.cpp" />
@@ -39,10 +56,13 @@
     <ClCompile Include="src\net\netcontroller.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\extern_application.hpp" />
+    <ClInclude Include="include\inc_data\extern_config.hpp" />
     <ClInclude Include="include\inc_data\extern_data.hpp" />
+    <ClInclude Include="include\inc_data\studyaids\smartextern_focus.hpp" />
+    <ClInclude Include="include\inc_data\studyaids\smartextern_todayschedule.hpp" />
     <ClInclude Include="include\inc_net\extern_net.hpp" />
     <ClInclude Include="include\inc_tip\extern_tipwindow.hpp" />
-    <ClInclude Include="lib\CenthooLib\HData\HData.hpp" />
     <QtMoc Include="src\model\widget\userinfo_changewindow.hpp" />
     <QtMoc Include="src\model\widget\userinfo_window.hpp" />
     <QtMoc Include="src\model\widget\userinfo_selfshow_window.hpp" />
@@ -50,31 +70,61 @@
     <QtMoc Include="src\model\main\list\contactslist.hpp" />
     <QtMoc Include="src\model\main\page\contactspage.hpp" />
     <QtMoc Include="src\model\widget\social\addfriendform.hpp" />
+    <QtMoc Include="src\model\main\list\chatlist.hpp" />
+    <QtMoc Include="src\model\main\page\chatpage.hpp" />
+    <QtMoc Include="src\model\widget\chat\privatechatlistitem.hpp" />
+    <QtMoc Include="src\model\widget\chat\privatedialogwidget.hpp" />
+    <QtMoc Include="src\model\widget\chat\messageblock.hpp" />
+    <QtMoc Include="src\model\widget\feedback_window.hpp" />
+    <QtMoc Include="src\data\config_manager.hpp" />
+    <ClInclude Include="src\data\guard.hpp" />
+    <QtMoc Include="src\model\main\list\studyaidslist.hpp" />
+    <QtMoc Include="src\model\main\page\studyaidspage.hpp" />
+    <ClInclude Include="src\data\studyaids\focus_datamanager.hpp" />
+    <ClInclude Include="src\data\studyaids\todayschedule_datamanager.hpp" />
     <ClInclude Include="src\model\widget\social\friendlistitem.hpp" />
     <QtMoc Include="src\data\local_datamanager.hpp" />
     <QtMoc Include="src\model\widget\social\notificationitem.hpp" />
+    <QtMoc Include="src\model\widget\studyaids\focus\focuswidget.hpp" />
+    <QtMoc Include="src\model\widget\studyaids\focus\dataview.hpp" />
+    <QtMoc Include="src\model\widget\studyaids\focus\startfocus.hpp" />
+    <QtMoc Include="src\model\widget\studyaids\focus\focusfeedback.hpp" />
+    <QtMoc Include="src\model\widget\studyaids\focus\dataviewlistitem.hpp" />
+    <QtMoc Include="src\model\widget\studyaids\schedule\schedulewidget.hpp" />
+    <QtMoc Include="src\model\widget\studyaids\schedule\todayschedule.hpp" />
+    <QtMoc Include="src\model\widget\studyaids\schedule\todolistitem.hpp" />
+    <ClInclude Include="src\view\main\list\ui_chatlist.hpp" />
     <ClInclude Include="src\view\main\list\ui_contactslist.hpp" />
+    <ClInclude Include="src\view\main\list\ui_studyaidslist.hpp" />
+    <ClInclude Include="src\view\main\page\ui_chatpage.hpp" />
     <ClInclude Include="src\view\main\page\ui_contactspage.hpp" />
+    <ClInclude Include="src\view\main\page\ui_studyaidspage.hpp" />
+    <ClInclude Include="src\view\widget\chat\ui_chatlistitem.hpp" />
     <ClInclude Include="src\view\widget\social\ui_addfriendform.hpp" />
     <ClInclude Include="src\view\widget\social\ui_friendlistitem.hpp" />
     <ClInclude Include="src\view\widget\social\ui_notification.hpp" />
+    <ClInclude Include="src\view\widget\studyaids\focus\dataview.hpp" />
+    <ClInclude Include="src\view\widget\studyaids\focus\focusfeedback.hpp" />
+    <ClInclude Include="src\view\widget\studyaids\focus\focuswidget.hpp" />
+    <ClInclude Include="src\view\widget\studyaids\focus\startfocus.hpp" />
+    <ClInclude Include="src\view\widget\studyaids\schedule\schedulewidget.hpp" />
+    <ClInclude Include="src\view\widget\studyaids\schedule\todayschedule.hpp" />
+    <ClInclude Include="src\view\widget\studyaids\schedule\todolistitem.hpp" />
+    <ClInclude Include="src\view\widget\ui_feedback.hpp" />
     <ClInclude Include="src\view\widget\ui_userinfo_changewindow.hpp" />
     <ClInclude Include="src\view\widget\ui_userinfo_window.hpp" />
     <QtMoc Include="src\model\widget\tipwindow.hpp" />
     <QtMoc Include="src\model\main\list\englearnlist.hpp" />
     <QtMoc Include="src\model\main\page\englearnpage.hpp" />
     <QtMoc Include="src\net\netcontroller.hpp" />
-    <QtMoc Include="src\model\main\list\comchatlist.hpp" />
     <ClInclude Include="src\model\main\list\abstractlist.hpp" />
     <ClInclude Include="src\model\main\page\abstractpage.hpp" />
-    <QtMoc Include="src\model\main\page\comchatpage.hpp" />
     <ClInclude Include="src\view\main\list\ui_comchatlist.hpp" />
     <ClInclude Include="src\view\main\list\ui_englearnlist.hpp" />
     <ClInclude Include="src\view\main\page\ui_comchatpage.hpp" />
     <ClInclude Include="src\view\main\page\ui_englearnpage.hpp" />
     <ClInclude Include="src\view\widget\ui_tipwindow.hpp" />
     <QtMoc Include="src\model\main\mainwindow.hpp" />
-    <QtMoc Include="src\model\widget\messagewidget.hpp" />
     <ClInclude Include="src\view\main\ui_mainwindow.hpp" />
     <QtMoc Include="src\model\login\registerwindow.hpp" />
     <ClInclude Include="lib\CenthooLib\HTime\HTime.hpp" />
@@ -87,6 +137,8 @@
     <ClInclude Include="src\standard.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="config\logininfo.json" />
+    <None Include="config\netconfig.json" />
     <None Include="cpp.hint" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -111,7 +163,7 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>Qt6_MSVC2019</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtModules>core;gui;widgets;charts</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
@@ -150,6 +202,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_);src;lib;include</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
