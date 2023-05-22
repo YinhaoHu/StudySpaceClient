@@ -1,2 +1,2 @@
 # StudySpaceClient
-* For more information, visit: [Study Space Website](https://yinhaohu.github.io/)
+* For more information, visit: [Study Space Website](http://www.centhoo.top/product/StudySpace/introduce.html)
